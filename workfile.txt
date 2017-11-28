@@ -1,0 +1,11 @@
+docker build -t miacucinadev -f Dockerfiledev . 
+
+docker build -t miacucinacms .
+
+docker run -d -p 5001:5001 miacucinacms 
+
+docker run -dit -p 5001:5001 -v /miacucinaCms:/app miacucinadev
+
+
+
+
