@@ -1,8 +1,8 @@
 import braintree
 from flask import request, Flask, url_for
+from payment import paymentCore
 
 app = Flask(__name__)
-
 
 braintree.Configuration.configure(braintree.Environment.Sandbox,
 merchant_id="use_your_merchant_id",
@@ -12,6 +12,8 @@ private_key="use_your_private_key")
 @app.route('/')
 @app.route('/hello')
 def hello_world():
+    a = paymentCore.BrainTreePayment()
+
     return 'Hello, World docker!'
 
 @app.route('/client_token', methods=["GET"])
