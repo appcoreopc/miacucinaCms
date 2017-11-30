@@ -1,17 +1,27 @@
 import braintree
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
-main = Blueprint('main', __name__)
+main = Blueprint('tour', __name__)
 @main.route('/')
 def index():
     return "tour"
-@main.route('/<string:country>/<string:city>')
-def getByLocation(country, city):    
+
+@main.route('/<int:tourid>', methods=["GET"])
+def getLocation(tourid):    
+    return "get location by" + str(tourid)
+
+@main.route('/<string:country>/<string:city>', methods=["GET"])
+def getCountryLocation(country, city):    
     return "get location by" + country +  " " + city
 
+@main.route('/<int:tourid>', methods=["GET"])
+def getTour(tourid):    
+    return "get location by" + str(tourid)
 
-class SimpleApp():
-    @staticmethod
-    def getClientToken():
-        return "hello token"
-            #return braintree.ClientToken.generate()
+@main.route('/<int:tourid>', methods=["POST"])
+def saveTour(tourid):        
+    return "get location by" + str(tourid)
+
+@main.route('/<int:tourid>', methods=["DELETE"])
+def deleteTour(tourid):    
+    return "get location by" + str(tourid)
