@@ -8,8 +8,6 @@ Base = declarative_base()
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-#from app import db
-
 class User(db.Model):
     __tablename__ = 'users'
     __table_args__ = {'extend_existing': True} 
@@ -40,6 +38,7 @@ class Tour(db.Model):
     price = Column(Numeric, unique=False)
     paymentGateWay = Column(String(120), unique=False)
     modifiedDate = Column(DateTime)
+    itinerary = db.relationship("Location", backref="Tour", lazy=True)
     
     def __init__(self, name=None, description=None):
         self.name = name
@@ -57,6 +56,8 @@ class Location(db.Model):
     locationLat = Column(Float)
     imageUrl = Column(String(500))
     modifiedDate = Column(DateTime)
+    tourId = db.Column(db.Integer, db.ForeignKey('tour.id'),
+        nullable=False)
     
     def __init__(self, name=None, description=None):
         self.name = name

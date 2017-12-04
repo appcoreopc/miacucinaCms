@@ -44,7 +44,6 @@ def shutdown_session(exception=None):
 
 init_db()
 
-
 from models import models   
 from models.models import User
 
