@@ -16,11 +16,18 @@ def index():
 
 @main.route('/<int:tourid>', methods=["GET"])
 def getLocation(tourid):  
-    user = User("test4", "test4", "secret") 
-    r = User.query.filter_by(id=2).first()
-    return "test"
-    #return jsonify(user)
-    #return "get location by" + str(tourid)
+    user = User("test4", "test4", "secret")
+    try:
+       r = User.query.filter_by(id=tourid).first()
+       print(r)        
+       if r is None:
+          jsonify("none")
+       else:
+          return jsonify(r.serialize())
+
+    except Exception as e: 
+        return jsonify(str(e))    
+    
 
 @main.route('/<string:country>/<string:city>', methods=["GET"])
 def getCountryLocation(country, city):    

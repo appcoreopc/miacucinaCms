@@ -22,6 +22,16 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.name)
 
+    def serialize(self):
+        return {
+          'id' : self.id, 
+          'name' : self.name,
+          'email' : self.email,
+          'password' : self.password, 
+          'createDate' : self.createDate, 
+          'modifiedDate' : self.modifiedDate
+        }
+    
             
 class Location(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -58,21 +68,6 @@ class Tour(db.Model):
     def __repr__(self):
         return '<Tour %r>' % (self.name)
 
-
-# class TourLocation(db.Model):
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     tourId = Column(Integer, unique=True)
-#     locationId = Column(Integer, unique=True)
-#     description = Column(String(120), unique=True)
-#     modifiedDate = Column(DateTime)
-
-#     def __init__(self, tourId=None, locationId=None, description=None):
-#         self.tourId = tourId
-#         self.locationId = locationId
-#         self.description =  description
-
-#     def __repr__(self):
-#         return '<TourLocation %r>' % (self.name)
 
 class Country(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
