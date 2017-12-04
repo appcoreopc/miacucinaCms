@@ -23,15 +23,8 @@ class User(db.Model):
         return '<User %r>' % (self.name)
 
     def serialize(self):
-        return {
-          'id' : self.id, 
-          'name' : self.name,
-          'email' : self.email,
-          'password' : self.password, 
-          'createDate' : self.createDate, 
-          'modifiedDate' : self.modifiedDate
-        }
-    
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
             
 class Location(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -50,6 +43,10 @@ class Location(db.Model):
     def __repr__(self):
         return '<TourLocation %r>' % (self.name)
 
+    def serialize(self):            
+              
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class Tour(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=False)
@@ -67,6 +64,12 @@ class Tour(db.Model):
 
     def __repr__(self):
         return '<Tour %r>' % (self.name)
+    
+    def serialize(self):
+        for x in self.__table__.columns:
+                  print(x.name)
+
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class Country(db.Model):
@@ -82,6 +85,10 @@ class Country(db.Model):
     def __repr__(self):
         return '<Country %r>' % (self.name)
 
+    def serialize(self):
+           return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
 class City(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
@@ -93,6 +100,9 @@ class City(db.Model):
 
     def __repr__(self):
         return '<City %r>' % (self.name)
+
+    def serialize(self):        
+         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class PaymentHistory(db.Model):
     __tablename__ = 'paymenthistory'
@@ -112,6 +122,9 @@ class PaymentHistory(db.Model):
     def __repr__(self):
         return '<Contact %r>' % (self.name)
 
+    def serialize(self):
+           return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class PaymentGateWay(db.Model):
     __tablename__ = 'paymentgateways'
     id = Column(Integer, primary_key=True)
@@ -125,3 +138,7 @@ class PaymentGateWay(db.Model):
 
     def __repr__(self):
         return '<Contact %r>' % (self.name)
+
+    def serialize(self):
+           return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+

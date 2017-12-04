@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from models.models import User, Tour, Location
+from sqlalchemy.ext.serializer import loads, dumps
 
 from app import db
 
@@ -21,12 +22,11 @@ def getLocation(tourid):
        r = User.query.filter_by(id=tourid).first()
        print(r)        
        if r is None:
-          jsonify("none")
+          return jsonify("{}"), 400
        else:
-          return jsonify(r.serialize())
-
+          return jsonify(r.serialize()), 200          
     except Exception as e: 
-        return jsonify(str(e))    
+        return jsonify(str(e)), 400 
     
 
 @main.route('/<string:country>/<string:city>', methods=["GET"])
@@ -83,15 +83,5 @@ def testpopulate():
 
 @main.route('/testget', methods=["GET"])
 def testget():
-    tlist = Tour.query.filter_by(id=1).all()
-
-    for x in tlist:
-        print(x.name)
-        for y in x.itenaries:
-            print(y.description)
-
-    return "ok";
-    
-    
-    
-
+    tlist = Tour.query.filter_by(id=1).first()
+    return jsonify(tlist.serialize());
