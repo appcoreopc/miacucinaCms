@@ -1,7 +1,16 @@
 from sqlalchemy import Column, Integer, String, Numeric, DateTime, Float
-from app import Base
+from flask import Flask
+from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
 
-class User(Base):
+Base = declarative_base()
+
+app = Flask(__name__)
+db = SQLAlchemy(app)
+
+#from app import db
+
+class User(db.Model):
     __tablename__ = 'users'
     __table_args__ = {'extend_existing': True} 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -19,7 +28,7 @@ class User(Base):
     def __repr__(self):
         return '<User %r>' % (self.name)
 
-class Tour(Base):
+class Tour(db.Model):
     __tablename__ = 'tours'
     __table_args__ = {'extend_existing': True} 
 
@@ -39,7 +48,7 @@ class Tour(Base):
     def __repr__(self):
         return '<Tour %r>' % (self.name)
 
-class Location(Base):
+class Location(db.Model):
     __tablename__ = 'locations'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
@@ -56,7 +65,7 @@ class Location(Base):
     def __repr__(self):
         return '<TourLocation %r>' % (self.name)
 
-class TourLocation(Base):
+class TourLocation(db.Model):
     __tablename__ = 'tourlocations'
     id = Column(Integer, primary_key=True, autoincrement=True)
     tourId = Column(Integer, unique=True)
@@ -72,7 +81,7 @@ class TourLocation(Base):
     def __repr__(self):
         return '<TourLocation %r>' % (self.name)
 
-class Country(Base):
+class Country(db.Model):
     __tablename__ = 'countries'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
@@ -86,7 +95,7 @@ class Country(Base):
     def __repr__(self):
         return '<Country %r>' % (self.name)
 
-class City(Base):
+class City(db.Model):
     __tablename__ = 'cities'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
@@ -99,7 +108,7 @@ class City(Base):
     def __repr__(self):
         return '<City %r>' % (self.name)
 
-class PaymentHistory(Base):
+class PaymentHistory(db.Model):
     __tablename__ = 'paymenthistory'
     id = Column(Integer, primary_key=True, autoincrement=True)
     userId = Column(Integer, unique=True)
@@ -116,7 +125,7 @@ class PaymentHistory(Base):
     def __repr__(self):
         return '<Contact %r>' % (self.name)
 
-class PaymentGateWay(Base):
+class PaymentGateWay(db.Model):
     __tablename__ = 'paymentgateways'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True)
