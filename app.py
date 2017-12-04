@@ -19,6 +19,7 @@ public_key="use_your_public_key",
 private_key="use_your_private_key")
 
 def init_db():
+    print("create all relevant data")
     db.create_all()  
 
 @app.route('/')
@@ -41,6 +42,7 @@ def checkout():
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
+
 
 init_db()
 
