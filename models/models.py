@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Numeric, DateTime, Float
 from flask import Flask
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
-
+import json
 from app import db
 
 class User(db.Model):
@@ -23,6 +23,7 @@ class User(db.Model):
         return '<User %r>' % (self.name)
 
     def serialize(self):
+        print(dir(self))
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
             
@@ -43,8 +44,7 @@ class Location(db.Model):
     def __repr__(self):
         return '<TourLocation %r>' % (self.name)
 
-    def serialize(self):            
-              
+    def serialize(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Tour(db.Model):
@@ -65,12 +65,8 @@ class Tour(db.Model):
     def __repr__(self):
         return '<Tour %r>' % (self.name)
     
-    def serialize(self):
-        for x in self.__table__.columns:
-                  print(x.name)
-
+    def serialize(self):   
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
 
 class Country(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
