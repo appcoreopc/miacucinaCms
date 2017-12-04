@@ -12,8 +12,6 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
-print("configure")
-
 
 braintree.Configuration.configure(braintree.Environment.Sandbox,
 merchant_id="use_your_merchant_id",
@@ -21,13 +19,7 @@ public_key="use_your_public_key",
 private_key="use_your_private_key")
 
 def init_db():
-    db.create_all()
-    print("init")
-
-    #print("done creating all")    
-    #user = User("test1", "test2", "secret")    
-    #db.session.add(user)
-    #db.session.commit()
+    db.create_all()  
 
 @app.route('/')
 @app.route('/hello')
