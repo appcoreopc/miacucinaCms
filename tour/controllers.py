@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, Flask
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from models.models import User, Tour
+from models.models import User, Tour, Location
 
 from app import db
 
@@ -43,5 +43,33 @@ def test():
     db.create_all()
     user = User("test4", "test4", "secret")    
     db.session.add(user)
+    db.session.commit()
+    return "get location by" + str("test")
+
+@main.route('/testpopulate', methods=["GET"])
+def testpopulate(): 
+    db.create_all()
+    user = User("test4", "test4", "secret")    
+    db.session.add(user)
+
+    l1 = Location("AKL", "Loc1")
+    l2 = Location("AKL", "Loc2")
+    l3 = Location("AKL", "Loc3")
+    l4 = Location("AKL", "Loc4")
+
+    t = Tour("Auckland", "Auckland Food Tour")
+
+    t.itenaries.append(l1)
+    t.itenaries.append(l2)
+    # t.itenaries.append(13)
+    # t.itenaries.append(14)
+
+    db.session.add(l1)
+    db.session.add(l2)
+    db.session.add(l3)
+    db.session.add(l4)
+    
+    db.session.add(t)
+    
     db.session.commit()
     return "get location by" + str("test")
