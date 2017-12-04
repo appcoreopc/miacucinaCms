@@ -25,13 +25,13 @@ class User(db.Model):
             
 class Location(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50), unique=True)
+    name = Column(String(50))
     description = Column(String(120))
     locationLong = Column(Float)
     locationLat = Column(Float)
     imageUrl = Column(String(500))
     modifiedDate = Column(DateTime)
-    tourId = db.Column(db.Integer, db.ForeignKey('tour.id'), nullable=False)
+    tourId = db.Column(db.Integer, db.ForeignKey('tour.id'))
     
     def __init__(self, name=None, description=None):
         self.name = name

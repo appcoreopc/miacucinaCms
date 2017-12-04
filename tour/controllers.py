@@ -73,3 +73,18 @@ def testpopulate():
     
     db.session.commit()
     return "get location by" + str("test")
+
+@main.route('/testget', methods=["GET"])
+def testget():
+    tlist = Tour.query.filter_by(id=1).all()
+
+    for x in tlist:
+        print(x.name)
+        for y in x.itenaries:
+            print(y.description)
+
+    return "ok";
+    
+    
+    
+
