@@ -43,7 +43,6 @@ def checkout():
 def shutdown_session(exception=None):
     db.session.remove()
 
-
 init_db()
 
 from models import models   

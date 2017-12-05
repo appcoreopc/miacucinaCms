@@ -1,9 +1,9 @@
 import collections
 from flask import request
+import importlib
 
 def serializeItem(obj, printLevel=False): 
     methodList = ['append', 'query_class', 'serialize', 'clear', 'copy', 'count', 'query', 'index', 'insert', 'metadata', 'extend', 'remove', 'sort', 'reverse', 'pop']
-
     list = []
     for a in dir(obj):            
           if not a.startswith('_') and not a.isupper() and a not in methodList:   
@@ -13,7 +13,6 @@ def serializeItem(obj, printLevel=False):
             else:  
               subContent = ''
               subContent += ' %s:[' % (a)       
-
               sublist = []
               for lv in avalue:             
                 sublist.append(serializeItem(lv))
@@ -28,17 +27,27 @@ def serializeItem(obj, printLevel=False):
 def is_collection(obj):
     return isinstance(obj, collections.Sequence) and not isinstance(obj, str)
 
-
 def handleJsonRequest(class_):
-    def wrap(f):
-        def decorator(*args):
+    def wrap(f):        
+        def decorator(*args):           
             obj = class_(**request.get_json())
             return f(obj)
         return decorator
     return wrap
 
-
-
+def createInstance(module_name, class_name):
+    class_ = None
+    try:
+        module_ = importlib.import_module(module_name)
+        try:
+            class_ = getattr(module_, class_name)
+            instance = class_()            
+        except AttributeError:
+            print('Class does not exist')
+    except ImportError:
+        print('Module does not exist')        
+    return instance
+   
 class HttpStatusCode():      
   HttpOk = 200
   Http400 = 400
