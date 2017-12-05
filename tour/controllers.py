@@ -1,13 +1,16 @@
 import braintree
-from flask import Blueprint, jsonify, Flask
+from flask import Blueprint, jsonify, Flask, request
 import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from models.models import User, Tour, Location, City, Country
 from app import db
-from utilserializer import serializeItem, HttpStatusCode
+from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest
 from pprint import pprint
+
+from collections import namedtuple
+TourObject = namedtuple('TourObject', 'name description')
 
 main = Blueprint('tour', __name__)
 
@@ -38,10 +41,15 @@ def getCountryLocation(country, city):
 
     return jsonify('{}'), 200
 
-@main.route('/<int:tourid>', methods=["POST"])
-def saveTour(tourid):      
 
-    return "get location by" + str(tourid)
+@main.route('/create', methods=["POST"])
+@handleJsonRequest(TourObject)
+def saveTour(tourObject):      
+    
+    print(tourObject.name)
+    print(tourObject.description)
+
+    return "get location by"
 
 @main.route('/<int:tourid>', methods=["DELETE"])
 def deleteTour(tourid):    

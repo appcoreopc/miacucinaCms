@@ -1,4 +1,5 @@
 import collections
+from flask import request
 
 def serializeItem(obj, printLevel=False): 
     methodList = ['append', 'query_class', 'serialize', 'clear', 'copy', 'count', 'query', 'index', 'insert', 'metadata', 'extend', 'remove', 'sort', 'reverse', 'pop']
@@ -26,6 +27,16 @@ def serializeItem(obj, printLevel=False):
 
 def is_collection(obj):
     return isinstance(obj, collections.Sequence) and not isinstance(obj, str)
+
+
+def handleJsonRequest(class_):
+    def wrap(f):
+        def decorator(*args):
+            obj = class_(**request.get_json())
+            return f(obj)
+        return decorator
+    return wrap
+
 
 
 class HttpStatusCode():      
