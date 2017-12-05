@@ -25,7 +25,6 @@ class User(db.Model):
     def serialize(self):
         print(dir(self))
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
             
 class Location(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -56,6 +55,7 @@ class Tour(db.Model):
     price = Column(Numeric, unique=False)
     paymentGateWay = Column(String(120), unique=False)
     modifiedDate = Column(DateTime)
+    #review = Column(String(500))
     itenaries = db.relationship('Location', backref='tour', lazy=True)
 
     def __init__(self, name=None, description=None):
@@ -73,6 +73,7 @@ class Country(db.Model):
     name = Column(String(50), unique=True)
     description = Column(String(120), unique=True)
     modifiedDate = Column(DateTime)
+    cities = db.relationship('City', backref='country', lazy=True)
 
     def __init__(self, name=None, description=None):
         self.name = name
@@ -84,11 +85,11 @@ class Country(db.Model):
     def serialize(self):
            return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-
 class City(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
     description = Column(String(120), unique=True)
+    countryId = db.Column(db.Integer, db.ForeignKey('country.id'))
 
     def __init__(self, name=None, description=None):
         self.name = name
@@ -100,8 +101,7 @@ class City(db.Model):
     def serialize(self):        
          return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-class PaymentHistory(db.Model):
-    __tablename__ = 'paymenthistory'
+class PaymentHistory(db.Model): 
     id = Column(Integer, primary_key=True, autoincrement=True)
     paymentGatewayId = Column(Integer)
     tourId = Column(Integer)
@@ -109,7 +109,6 @@ class PaymentHistory(db.Model):
     paymentDate = Column(DateTime)
     modifiedDate = Column(DateTime)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
     
     def __init__(self, name=None, email=None):
         self.name = name
@@ -122,7 +121,6 @@ class PaymentHistory(db.Model):
            return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class PaymentGateWay(db.Model):
-    __tablename__ = 'paymentgateways'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True)
     description = Column(String(120), unique=True)   

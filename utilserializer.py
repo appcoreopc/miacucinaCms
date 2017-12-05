@@ -26,3 +26,12 @@ def serializeItem(obj, printLevel=False):
 
 def is_collection(obj):
     return isinstance(obj, collections.Sequence) and not isinstance(obj, str)
+
+
+class HttpStatusCode():      
+  HttpOk = 200
+  Http400 = 400
+  Http401 = 401
+  Http500 = 500 
+  HttpCreated = 201
+  
