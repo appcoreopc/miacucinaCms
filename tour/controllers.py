@@ -46,11 +46,9 @@ def getCountryLocation(country, city):
 def saveTour():     
     s, i = parseJsonRequest('models.models', 'Tour', request.json)
     if s is True:     
-      print(i.name)
-      
+      print(i.name)      
       db.session.add(i)
-      db.session.commit()   
-
+      db.session.commit()  
     return "get location by"
 
 @main.route('/<int:tourid>', methods=["DELETE"])

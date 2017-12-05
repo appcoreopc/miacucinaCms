@@ -4,12 +4,8 @@ user = Blueprint('user', __name__)
 
 @user.route('/')
 def index():
-    return "users"
+    return "user"
 
-@user.route('/create', methods=["POST"])
-def createUser():
-    return "users"
-
-@user.route('/authenticate', methods=["POST"])
-def authenticate():
+@user.route('/<string:userId>', methods=["GET"])
+def authenticate(userId):
     return "users"
