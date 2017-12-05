@@ -43,21 +43,10 @@ def getCountryLocation(country, city):
 
 
 @main.route('/create', methods=["POST"])
-@handleJsonRequest(TourObject)
-def saveTour(tourObject):     
-    #createInstance('models', 'Tour') 
-
-    print(type(request.json))
-    b = createInstance('models.models', 'Tour')
-    c = parseJsonRequest('models.models', 'Tour', request.json)
-    print('instance valuessss')
-    print(c.name)
-
-    b.name = "test"
-    b.description = "tourtourtour"
-    print(b)
-    print(tourObject.name)
-    print(tourObject.description)
+def saveTour():     
+    s, i = parseJsonRequest('models.models', 'Tour', request.json)
+    if s is True:     
+      print(i.name)
 
     return "get location by"
 

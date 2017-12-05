@@ -49,11 +49,12 @@ def createInstance(module_name, class_name):
     return instance
 
 def parseJsonRequest(module_name, class_name, requestJson):
-      instance = createInstance(module_name, class_name)      
+      status = False
+      instance = createInstance(module_name, class_name) 
       for k in requestJson: 
           setattr(instance, k, requestJson[k])    
-      return instance
-
+          status = True
+      return status, instance
   
 class HttpStatusCode():      
   HttpOk = 200
