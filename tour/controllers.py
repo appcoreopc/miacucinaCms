@@ -47,12 +47,20 @@ def saveTour():
     s, i = parseJsonRequest('models.models', 'Tour', request.json)
     if s is True:     
       print(i.name)
+      
+      db.session.add(i)
+      db.session.commit()   
 
     return "get location by"
 
 @main.route('/<int:tourid>', methods=["DELETE"])
 def deleteTour(tourid):    
-    return "get location by" + str(tourid)
+
+    tour = Tour.query.filter_by(id=tourid).first()
+    db.session.delete(tour)
+    db.session.commit()
+    
+    return jsonify('{}'), 200
 
 @main.route('/test', methods=["GET"])
 def test(): 
