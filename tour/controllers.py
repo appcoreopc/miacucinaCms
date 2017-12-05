@@ -30,14 +30,9 @@ def getLocation(tourid):
     
 
 @main.route('/<string:country>/<string:city>', methods=["GET"])
-def getCountryLocation(country, city):
-
-    pprint(country)
+def getCountryLocation(country, city):    
     if country:
         result = Country.query.filter(Country.name.like(country)).first()
-
-        pprint(result)
-        print("executing")
         if result is not None: 
             return jsonify(serializeItem(result)), 200
 
