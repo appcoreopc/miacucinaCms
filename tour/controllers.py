@@ -87,8 +87,7 @@ def testpopulate():
 def testget():
     tlist = Tour.query.filter_by(id=1).first()
  
-    #print(is_sequence(tlist))
-    
+    #print(is_sequence(tlist))    
     # for a in dir(tlist):  
     #       if not a.startswith('_') and not a.isupper():   
     #         avalue = getattr(tlist, a)
@@ -96,22 +95,24 @@ def testget():
     #          print('\t%s : %s' % (a, getattr(tlist, a)))
     #         else:                
     #          print('collection item %s' % a)     
-    serializeItem(tlist) 
+    v = serializeItem(tlist, True) 
+    print(v)
+    jsonify(v)
     # print("tlisttlisttlist")
     # print(is_collection(tlist))
 
     # print('======getting itenaries type:')                 
     # print(is_collection(tlist.itenaries))
 
-    print(dir(tlist.itenaries))
+    #print(dir(tlist.itenaries))
 
-    print(type(tlist.itenaries))
+    #print(type(tlist.itenaries))
 
-    for x in tlist.itenaries:
+    #for x in tlist.itenaries:
          #print(json.dumps(x))
-         print(x.name)
+         #print(x.name)
     
-    return jsonify(tlist.serialize());
+    return jsonify(v);
 
 def is_sequence(arg):
     return (not hasattr(arg, "strip") and
@@ -123,18 +124,33 @@ def is_collection(obj):
 
 methodList = ['append', 'query_class', 'serialize', 'clear', 'copy', 'count', 'query', 'index', 'insert', 'metadata', 'extend', 'remove', 'sort', 'reverse', 'pop']
 
-def serializeItem(obj, printLevel=False):
-    print('start!')
+def serializeItem(obj, printLevel=False): 
+    list = []
     for a in dir(obj):    
-          if printLevel == True:
-             print(a)   
+          #if printLevel == True:
+             #print(a)   
           if not a.startswith('_') and not a.isupper() and a not in methodList:   
             avalue = getattr(obj, a)
             if not is_collection(avalue):       
-             print('\t%s : %s' % (a, avalue))
+             #print('\t%s : %s' % (a, avalue))
+             list.append("'%s' : '%s' " % (a, avalue))
             else:
-             print('list item %s' % a)
-             for lv in avalue:
-              print(type(lv))
-              serializeItem(lv)          
+              #print('list item %s' % a)
+              subContent = ''
+              subContent += ' %s:[' % (a)       
+
+              sublist =[]
+              for lv in avalue:             
+                sublist.append(serializeItem(lv))
+
+              subContent += ", ".join(sublist)
+                #print(subContent)
+            
+              subContent += ']'              
+              list.append(subContent)
+   
+    fstr = ", ".join(list)
+    return '{' + fstr + '}';
+
+             
              #print('collection item %s' % a)      
