@@ -11,6 +11,7 @@ from models.models import User, Tour, Location
 from sqlalchemy.ext.serializer import loads, dumps
 
 from app import db
+from utilserializer import serializeItem
 
 main = Blueprint('tour', __name__)
 
@@ -124,33 +125,33 @@ def is_collection(obj):
 
 methodList = ['append', 'query_class', 'serialize', 'clear', 'copy', 'count', 'query', 'index', 'insert', 'metadata', 'extend', 'remove', 'sort', 'reverse', 'pop']
 
-def serializeItem(obj, printLevel=False): 
-    list = []
-    for a in dir(obj):    
-          #if printLevel == True:
-             #print(a)   
-          if not a.startswith('_') and not a.isupper() and a not in methodList:   
-            avalue = getattr(obj, a)
-            if not is_collection(avalue):       
-             #print('\t%s : %s' % (a, avalue))
-             list.append("'%s' : '%s' " % (a, avalue))
-            else:
-              #print('list item %s' % a)
-              subContent = ''
-              subContent += ' %s:[' % (a)       
+# def serializeItem(obj, printLevel=False): 
+#     list = []
+#     for a in dir(obj):    
+#           #if printLevel == True:
+#              #print(a)   
+#           if not a.startswith('_') and not a.isupper() and a not in methodList:   
+#             avalue = getattr(obj, a)
+#             if not is_collection(avalue):       
+#              #print('\t%s : %s' % (a, avalue))
+#              list.append("'%s' : '%s' " % (a, avalue))
+#             else:
+#               #print('list item %s' % a)
+#               subContent = ''
+#               subContent += ' %s:[' % (a)       
 
-              sublist =[]
-              for lv in avalue:             
-                sublist.append(serializeItem(lv))
+#               sublist =[]
+#               for lv in avalue:             
+#                 sublist.append(serializeItem(lv))
 
-              subContent += ", ".join(sublist)
-                #print(subContent)
+#               subContent += ", ".join(sublist)
+#                 #print(subContent)
             
-              subContent += ']'              
-              list.append(subContent)
+#               subContent += ']'              
+#               list.append(subContent)
    
-    fstr = ", ".join(list)
-    return '{' + fstr + '}';
+#     fstr = ", ".join(list)
+#     return '{' + fstr + '}';
 
              
              #print('collection item %s' % a)      
