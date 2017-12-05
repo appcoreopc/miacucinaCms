@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from models.models import User, Tour, Location, City, Country
 from app import db
-from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, createInstance
+from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, createInstance, parseJsonRequest
 from pprint import pprint
 
 from collections import namedtuple
@@ -46,7 +46,13 @@ def getCountryLocation(country, city):
 @handleJsonRequest(TourObject)
 def saveTour(tourObject):     
     #createInstance('models', 'Tour') 
+
+    print(type(request.json))
     b = createInstance('models.models', 'Tour')
+    c = parseJsonRequest('models.models', 'Tour', request.json)
+    print('instance valuessss')
+    print(c.name)
+
     b.name = "test"
     b.description = "tourtourtour"
     print(b)

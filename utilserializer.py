@@ -36,7 +36,7 @@ def handleJsonRequest(class_):
     return wrap
 
 def createInstance(module_name, class_name):
-    class_ = None
+    class_ = None    
     try:
         module_ = importlib.import_module(module_name)
         try:
@@ -47,7 +47,14 @@ def createInstance(module_name, class_name):
     except ImportError:
         print('Module does not exist')        
     return instance
-   
+
+def parseJsonRequest(module_name, class_name, requestJson):
+      instance = createInstance(module_name, class_name)      
+      for k in requestJson: 
+          setattr(instance, k, requestJson[k])    
+      return instance
+
+  
 class HttpStatusCode():      
   HttpOk = 200
   Http400 = 400
