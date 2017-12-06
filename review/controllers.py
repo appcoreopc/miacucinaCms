@@ -1,9 +1,8 @@
 import braintree
 from flask import Blueprint
 
-main = Blueprint('review', __name__)
+review = Blueprint('review', __name__)
 
-@main.route('/<int:tourid>')
-def getTourReview(tourId):
-    
-    return "tour" + str(tourId)
+@review.route('/<int:tourid>')
+def getTourReview(tourId):    
+    return "review" + str(tourId)
