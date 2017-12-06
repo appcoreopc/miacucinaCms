@@ -9,10 +9,10 @@ def serializeItem(obj, printLevel=False):
           if not a.startswith('_') and not a.isupper() and a not in methodList:   
             avalue = getattr(obj, a)
             if not is_collection(avalue):       
-              list.append("'%s' : '%s' " % (a, avalue))
+              list.append('"%s" : "%s" ' % (a, avalue))
             else:  
               subContent = ''
-              subContent += ' %s:[' % (a)       
+              subContent += ' "%s" : [' % (a)       
               sublist = []
               for lv in avalue:             
                 sublist.append(serializeItem(lv))
@@ -33,7 +33,7 @@ def serializeList(obj, objTagName):
     
      fstr = ", ".join(itemList)
     
-    return '{' + objTagName + ": [" + fstr + ']}';
+    return '{"' + objTagName + '": [' + fstr + ']}';
 
 
 
