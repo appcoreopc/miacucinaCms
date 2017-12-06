@@ -6,16 +6,18 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from models.models import User, Tour, Location, City, Country
 from app import db
-from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, createInstance, parseJsonRequest
-from pprint import pprint
-
+from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, createInstance, parseJsonRequest, serializeList
 from collections import namedtuple
+
 TourObject = namedtuple('TourObject', 'name description')
 
 main = Blueprint('tour', __name__)
 
 @main.route('/')
 def index():
+    tours = Tour.query.limit(10).all()
+    print(type(tours))
+    print(serializeList(tours, 'Tours'))
     return "tour"
 
 @main.route('/<int:tourid>', methods=["GET"])
@@ -33,7 +35,8 @@ def getLocation(tourid):
     
 
 @main.route('/<string:country>/<string:city>', methods=["GET"])
-def getCountryLocation(country, city):    
+def getCountryLocation(country, city): 
+
     if country:
         result = Country.query.filter(Country.name.like(country)).first()
         if result is not None: 
@@ -57,7 +60,7 @@ def deleteTour(tourid):
     tour = Tour.query.filter_by(id=tourid).first()
     db.session.delete(tour)
     db.session.commit()
-    
+
     return jsonify('{}'), 200
 
 @main.route('/test', methods=["GET"])
@@ -83,6 +86,7 @@ def testpopulate():
 
     t.itenaries.append(l1)
     t.itenaries.append(l2)
+
     # t.itenaries.append(13)
     # t.itenaries.append(14)
 

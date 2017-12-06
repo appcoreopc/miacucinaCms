@@ -24,6 +24,19 @@ def serializeItem(obj, printLevel=False):
     fstr = ", ".join(list)
     return '{' + fstr + '}';
 
+def serializeList(obj, objTagName): 
+    if isinstance(obj, list):
+     itemList = []      
+     
+     for x in obj:
+       itemList.append(serializeItem(x))
+    
+     fstr = ", ".join(itemList)
+    
+    return '{' + objTagName + ": [" + fstr + ']}';
+
+
+
 def is_collection(obj):
     return isinstance(obj, collections.Sequence) and not isinstance(obj, str)
 
@@ -62,4 +75,3 @@ class HttpStatusCode():
   Http401 = 401
   Http500 = 500 
   HttpCreated = 201
-  
