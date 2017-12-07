@@ -21,13 +21,17 @@ def createUser():
     s, user = parseJsonRequest('models.models', 'User', request.json)
     if s is True:  
       db.session.add(user)
-      db.session.commit()  
-    return jsonify('{}')
+      db.session.commit()
+      return jsonify('{ok}'), 201
+    return jsonify('{}'), 200
 
 @user.route('/<int:userId>', methods=["DELETE"])
 def deleteTour(userId):  
 
     user = User.query.filter_by(id=userId).first()
-    db.session.delete(user)
-    db.session.commit()
-    return jsonify('{}'), 200
+    if not user is None:
+     db.session.delete(user)
+     db.session.commit()
+     return jsonify('{}'), 201
+    
+    return jsonify('{}'), 202
