@@ -6,6 +6,8 @@ import {Store} from '@ngrx/store';
 import { counterReducer } from './tourPanel/dashboard/counterReducer';
 import { AuthEffects  } from './tourPanel/dashboard/dashboardEffects';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
+
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './tourPanel/dashboard/dashboard.component';
@@ -14,6 +16,10 @@ import { CountryComponentComponent } from './tourPanel/country-component/country
 import { CityComponentComponent } from './tourPanel/city-component/city-component.component';
 import { LocationComponentComponent } from './tourPanel/location-component/location-component.component';
 import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-component/tour-place-info-component.component';
+
+export const ROUTES: Routes = [
+  { path: '', component: DashboardComponent }
+];
 
 
 @NgModule({
@@ -27,9 +33,10 @@ import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-com
     TourPlaceInfoComponentComponent
   ],
   imports: [
-    BrowserModule, HttpModule,   
+    BrowserModule, HttpModule, RouterModule,
     StoreModule.forRoot([counterReducer]), 
-    EffectsModule.forRoot([AuthEffects]) /* Start monitoring app's side effects */
+    EffectsModule.forRoot([AuthEffects]), /* Start monitoring app's side effects */
+    RouterModule.forRoot(ROUTES)
   ],  
   providers: [],
   bootstrap: [AppComponent]
