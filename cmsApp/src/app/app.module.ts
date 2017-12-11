@@ -8,7 +8,6 @@ import { AuthEffects  } from './tourPanel/dashboard/dashboardEffects';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './tourPanel/dashboard/dashboard.component';
 import { CmdNavigationComponent } from './tourPanel/cmd-navigation/cmd-navigation.component';
@@ -18,9 +17,11 @@ import { LocationComponentComponent } from './tourPanel/location-component/locat
 import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-component/tour-place-info-component.component';
 
 export const ROUTES: Routes = [
-  { path: '', component: DashboardComponent }
+  { path: '', component: DashboardComponent },
+  { path: 'location', component: LocationComponentComponent },
+  { path: 'city', component: CityComponentComponent },
+  { path: 'country', component: CountryComponentComponent }
 ];
-
 
 @NgModule({
   declarations: [
