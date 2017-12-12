@@ -3,7 +3,11 @@ import { NgModule } from '@angular/core';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
+
 import { counterReducer } from './tourPanel/dashboard/counterReducer';
+import { cityReducer } from './tourPanel/city-component/cityReducer';
+import { CityEffects } from './tourPanel/city-component/cityEffects';
+
 import { AuthEffects  } from './tourPanel/dashboard/dashboardEffects';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -35,11 +39,13 @@ export const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule, HttpModule, RouterModule,
-    StoreModule.forRoot([counterReducer]), 
+    StoreModule.forRoot([counterReducer, cityReducer]), 
     EffectsModule.forRoot([AuthEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
   ],  
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+
