@@ -2,6 +2,8 @@ import { ActionReducer, Action } from '@ngrx/store';
 
 export const CITY_SAVE = 'CITY_SAVE';
 export const CITY_CANCEL = 'CITY_CANCEL';
+export const CITY_SAVE_SUCCESS = 'CITY_SAVE_SUCCESS';
+export const CITY_SAVE_ERR = 'CITY_SAVE_ERR';
 
 export function cityReducer(state: number = 0, action: Action) {
 	switch (action.type) {
@@ -9,6 +11,12 @@ export function cityReducer(state: number = 0, action: Action) {
 		    console.log(CITY_SAVE);
 			return state + 1;
 		case CITY_CANCEL:
+		    console.log(CITY_CANCEL);
+			return state - 1;	
+		case CITY_SAVE_SUCCESS:
+		    console.log(CITY_CANCEL);
+			return state - 1;	
+		case CITY_SAVE_ERR:
 		    console.log(CITY_CANCEL);
 			return state - 1;		
 		default:
