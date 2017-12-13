@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 interface AppState {
   counter: number;
+  name : string; 
+  description : string;
 }
 
 @Component({

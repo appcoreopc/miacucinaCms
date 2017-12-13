@@ -5,6 +5,13 @@ export const CITY_CANCEL = 'CITY_CANCEL';
 export const CITY_SAVE_SUCCESS = 'CITY_SAVE_SUCCESS';
 export const CITY_SAVE_ERR = 'CITY_SAVE_ERR';
 
+export interface CityAppState {
+	status: number;
+	name : string, 
+	description : string;
+	type : string; 
+  }
+
 export function cityReducer(state: number = 0, action: Action) {
 	switch (action.type) {
 		case CITY_SAVE:
@@ -17,7 +24,7 @@ export function cityReducer(state: number = 0, action: Action) {
 		    console.log(CITY_CANCEL);
 			return state - 1;	
 		case CITY_SAVE_ERR:
-		    console.log(CITY_CANCEL);
+		    console.log(CITY_SAVE_ERR);
 			return state - 1;		
 		default:
 			return state;

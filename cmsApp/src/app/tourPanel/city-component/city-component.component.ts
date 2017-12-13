@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CITY_CANCEL, CITY_SAVE } from './cityReducer';
+import { CITY_CANCEL, CITY_SAVE, CityAppState } from './cityReducer';
 import { Observable } from 'rxjs/Observable';
-
-interface AppState {
-  counter: number;
-}
 
 @Component({
   selector: 'app-city-component',
@@ -15,14 +11,30 @@ interface AppState {
 export class CityComponentComponent implements OnInit {
   counter: Observable<number>;
 
-  constructor(private store : Store<AppState>) { }
+  rows = [
+    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+    { name: 'Dany', gender: 'Male', company: 'KFC' },
+    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  ];
+
+  columns = [
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
+  ];
+
+  constructor(private store : Store<CityAppState>) { }
 
   ngOnInit() {
-    this.counter = this.store.select("counter");
+    this.counter = this.store.select("status");   
   }
 
   save(){
-		this.store.dispatch({ type: CITY_SAVE });
+
+    this.store.dispatch({
+       name : 'nz', 
+       description : 'nz',
+       type: CITY_SAVE });
   }
   
   cancel(){
