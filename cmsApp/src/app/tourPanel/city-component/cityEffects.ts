@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import {CITY_SAVE, CITY_CANCEL, CITY_SAVE_SUCCESS, CITY_SAVE_ERR, 
   CityAppState, CITY_CANCEL_OK } from './cityReducer';
   
+
 import { APPLICATION_HOST } from '../../applicationSetup';
 import 'rxjs/Rx';
 
@@ -20,12 +21,15 @@ export class CityEffects {
   .ofType(CITY_SAVE)
   // Map the payload into JSON to use as the request body
   .map(action => {    
-    console.log(action.name);
+    console.log(action);
     console.log(action.description);
     JSON.stringify(action);
   })
-  .switchMap(payload => this.http.post(APPLICATION_HOST + '/city/create', payload)
-  
+  .switchMap(payload => { 
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this.http.post(APPLICATION_HOST + '/city/create', payload, options);
+      })
   .map(res => ({ type: CITY_SAVE_SUCCESS, payload: res.json() }))
   // If request fails, dispatch failed action
   .catch(() => Observable.of({ type: CITY_SAVE_ERR }))

@@ -20,12 +20,15 @@ def getCityName(name):
     return jsonify('{}}'), 200
 
 @city.route('/create', methods=["POST"])
-def createUser():    
-    s, city = parseJsonRequest('models.models', 'City', request.json)
-    if s is True:  
-      db.session.add(city)
-      db.session.commit()
-      return jsonify('{ok}'), 201
+def createUser(): 
+    print('daatatata')   
+    print(request.json)
+    if not request.json is None: 
+      s, city = parseJsonRequest('models.models', 'City', request.json)
+      if s is True:  
+        db.session.add(city)
+        db.session.commit()
+        return jsonify('{ok}'), 201
     return jsonify('{}'), 200
 
 @city.route('/<int:cityId>', methods=["DELETE"])
