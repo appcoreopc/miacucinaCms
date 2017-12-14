@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, abort
-from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, parseJsonRequest
+from utilserializer import serializeItem, serializeList, HttpStatusCode, handleJsonRequest, parseJsonRequest
 from app import db
 from models.models import User, Tour, Location, City, Country
 
@@ -7,7 +7,10 @@ user = Blueprint('user', __name__)
 
 @user.route('/')
 def index():
-    return jsonify('user'), 200
+    result = User.query.limit(10).all();
+    if not result is None:
+      return jsonify(serializeList(result, 'users')), 200
+    return jsonify('{}'), 200
 
 @user.route('/<string:name>/<string:passtext>', methods=["GET"])
 def authenticate(name, passtext): 
