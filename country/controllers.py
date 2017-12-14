@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, abort
-from utilserializer import serializeItem, HttpStatusCode, handleJsonRequest, parseJsonRequest
+from utilserializer import serializeItem, serializeList, HttpStatusCode, handleJsonRequest, parseJsonRequest
 from app import db
 from models.models import User, Tour, Location, City, Country
 
@@ -8,9 +8,10 @@ country = Blueprint('country', __name__)
 @country.route('/')
 def index():
     result = Country.query.limit(10).all();
+    print(result)
     if not result is None:
-      return jsonify(serializeItem(result)), 200
-    return jsonify('{}'), 200
+      return jsonify(serializeList(result, 'countries')), 200
+    return jsonify('{none}'), 200
 
 @country.route('/<string:name>', methods=["GET"])
 def getCityName(name):

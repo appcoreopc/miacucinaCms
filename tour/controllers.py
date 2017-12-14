@@ -97,7 +97,6 @@ def testpopulate():
     db.session.add(t) 
 
     c1 =  Country("New Zealand", "New Zealand") 
-
     ct = City("Auckland", "Auckland")  
     ct2 = City("Wellington", "Wellington")
     ct3 = City("Nappier", "Nappier")
