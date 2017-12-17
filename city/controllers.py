@@ -21,12 +21,9 @@ def getCityName(name):
 
 @city.route('/create', methods=["POST"])
 def createUser():     
-    print('d1')   
-    print(request.data)
-    print(request.form)
     print(request.json)
     if not request.data is None: 
-      s, city = parseJsonRequest('models.models', 'City', request.data)
+      s, city = parseJsonRequest('models.models', 'City', request.json)
       print(city)
       if s is True:  
         db.session.add(city)
