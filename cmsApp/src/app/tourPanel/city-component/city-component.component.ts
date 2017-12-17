@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CITY_CANCEL, CITY_SAVE, CityAppState } from './cityReducer';
+import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET } from './cityReducer';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -24,11 +24,14 @@ export class CityComponentComponent implements OnInit {
   ];
 
   constructor(private store : Store<CityAppState>) { }
-
   ngOnInit() {
     this.counter = this.store.select("status");   
   }
 
+  ngAfterViewInit() {
+    this.store.dispatch({     
+       type: CITY_GET });
+  }
   save(){
 
     this.store.dispatch({
