@@ -14,7 +14,15 @@ export interface CityAppState {
 	name : string, 
 	description : string;
 	type : string; 
+	payload  : CityData; 
   }
+
+  export interface CityData {
+	status: number;
+	name : string, 
+	description : string;
+	type : string; 
+  } 
 
 export function cityReducer(state: number = 0, action: Action) {
 	switch (action.type) {

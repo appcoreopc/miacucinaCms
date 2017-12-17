@@ -22,18 +22,21 @@ import 'rxjs/Rx';
     @Effect() citySave$ = this.actions$    
     .ofType(CITY_SAVE)   
     .map(action => {    
-      console.log(action);
-      console.log(action.description);
-      JSON.stringify(action);
+      //console.log(action);
+      //console.log(action.description);
+      console.log(action.payload)
+      return JSON.stringify(action.payload);
     })
-    .switchMap(payload =>     
-      this.http.post('http://localhost:3001/city/create', "{'name' : 'nz', 'description' : 'appssss'}", this.options)     
+    .switchMap(payload => 
+      //console.log('payload logging:');
+      //console.log(payload);
+      this.http.post('http://localhost:3001/city/create', payload, this.options) 
+      //return Observable.of({ type: CITY_SAVE_ERR });
     )
     .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json() }))
     .catch(() => Observable.of({ type: CITY_SAVE_ERR }));
-    
+       
 
-   
     @Effect() cityReset$ = this.actions$
     // Listen for the 'LOGIN' action
     .ofType(CITY_CANCEL)

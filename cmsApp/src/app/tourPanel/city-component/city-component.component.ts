@@ -37,6 +37,10 @@ export class CityComponentComponent implements OnInit {
     this.store.dispatch({
        name : 'nz', 
        description : 'nz',
+       payload : {
+         name : 'newzealand', 
+         description : 'nz north'
+       },
        type: CITY_SAVE });
   }
   
