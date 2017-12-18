@@ -10,7 +10,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CityComponentComponent implements OnInit {
   
-
   status: Observable<number>;
   name : string = ""; 
   description : string = "";
@@ -29,7 +28,22 @@ export class CityComponentComponent implements OnInit {
   
   constructor(private store : Store<CityAppState>) { }
   ngOnInit() {
-    this.status = this.store.select("status");    
+    
+    this.status = this.store.select("status"); 
+    
+    this.status.subscribe( x => {
+
+      console.log('status changed!!!!');
+    });
+    
+    Observable.combineLatest(
+      this.store.select('status'), 
+      (status:any) => {
+        console.log(status); 
+        console.log('ulalala');      
+      });
+      
+    
   }
   
   ngAfterViewInit() {
@@ -47,6 +61,10 @@ export class CityComponentComponent implements OnInit {
           description : this.description
         },
         type: CITY_SAVE });
+
+       
+
+      
       }
       
       cancel(){

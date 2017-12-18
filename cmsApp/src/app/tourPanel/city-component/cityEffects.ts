@@ -33,7 +33,7 @@ import 'rxjs/Rx';
       this.http.post('http://localhost:3001/city/create', payload, this.options) 
       //return Observable.of({ type: CITY_SAVE_ERR });
     )
-    .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json() }))
+    .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json(), status : 2 }))
     .catch(() => Observable.of({ type: CITY_SAVE_ERR }));
        
 
@@ -46,8 +46,6 @@ import 'rxjs/Rx';
         return ({ type: CITY_CANCEL_OK});
       }); 
       
-
-
 
       @Effect() cityGet$ = this.actions$
       // Listen for the 'LOGIN' action

@@ -24,22 +24,22 @@ export interface CityAppState {
 	type : string; 
   } 
 
-export function cityReducer(state: number = 0, action: Action) {
+export function cityReducer(status: number = 0, action: Action) {
 	switch (action.type) {
 		case CITY_SAVE:
 		    console.log(CITY_SAVE);
-			return state + 1;
+			return status + 1;
 		case CITY_CANCEL:
 		    console.log(CITY_CANCEL);
-			return state - 1;	
+			return status - 1;	
 		case CITY_SAVE_SUCCESS:
 			console.log(CITY_SAVE_SUCCESS);
 			console.log(action);
-			return state - 1;	
+			return 2	
 		case CITY_SAVE_ERR:
 		    console.log(CITY_SAVE_ERR);
-			return state - 1;		
+			return status - 1;		
 		default:
-			return state;
+			return status;
 	}
 }
