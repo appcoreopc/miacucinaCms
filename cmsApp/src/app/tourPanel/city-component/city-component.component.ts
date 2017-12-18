@@ -9,43 +9,49 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./city-component.component.css']
 })
 export class CityComponentComponent implements OnInit {
-  counter: Observable<number>;
+  
 
+  status: Observable<number>;
+  name : string = ""; 
+  description : string = "";
+  
   rows = [
     { name: 'Austin', gender: 'Male', company: 'Swimlane' },
     { name: 'Dany', gender: 'Male', company: 'KFC' },
     { name: 'Molly', gender: 'Female', company: 'Burger King' },
   ];
-
+  
   columns = [
     { prop: 'name' },
     { name: 'Gender' },
     { name: 'Company' }
   ];
-
+  
   constructor(private store : Store<CityAppState>) { }
   ngOnInit() {
-    this.counter = this.store.select("status");   
-  }
-
-  ngAfterViewInit() {
-    this.store.dispatch({     
-       type: CITY_GET });
-  }
-  save(){
-
-    this.store.dispatch({
-       name : 'nz', 
-       description : 'nz',
-       payload : {
-         name : 'newzealand', 
-         description : 'nz north'
-       },
-       type: CITY_SAVE });
+    this.status = this.store.select("status");    
   }
   
-  cancel(){
-		this.store.dispatch({ type: CITY_CANCEL });
-	}  
+  ngAfterViewInit() {
+    this.store.dispatch({     
+      type: CITY_GET });
+    }
 
-}
+    save()
+    {
+      this.store.dispatch({
+        name : this.name, 
+        description :  this.description,
+        payload : {
+          name : this.name, 
+          description : this.description
+        },
+        type: CITY_SAVE });
+      }
+      
+      cancel(){
+        this.store.dispatch({ type: CITY_CANCEL });
+      }  
+      
+    }
+    

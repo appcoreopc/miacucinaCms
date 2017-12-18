@@ -1,27 +1,26 @@
 <p>
-  city-component works!
-  
+  city-component works!  
 </p>
 
 <div> 
   <ul>
     
     <li>  
-      <div id="status">              </div>
+      <div id="status" ([value])='status'>  </div>
     </li>
     
     <li>  
       <div> Name 
       </div>
       <div>
-        <input type="text" id="name" />
+        <input type="text" id="name" [(ngModel)]="name" />
       </div>
     </li>
     <li>  
       <div> Description 
       </div>
       <div>
-        <input type="text" id="description" />
+        <input type="text" id="description" [(ngModel)]="description"/>
       </div>
     </li>
     
@@ -38,16 +37,13 @@
     </li>
     
   </ul>    
-
+  
 </div>
-
-
-
 
 
 <div>
   <ngx-datatable
-    [rows]="rows"
-    [columns]="columns">
-  </ngx-datatable>
+  [rows]="rows"
+  [columns]="columns">
+</ngx-datatable>
 </div>

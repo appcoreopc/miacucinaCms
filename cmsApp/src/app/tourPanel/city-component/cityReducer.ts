@@ -33,7 +33,8 @@ export function cityReducer(state: number = 0, action: Action) {
 		    console.log(CITY_CANCEL);
 			return state - 1;	
 		case CITY_SAVE_SUCCESS:
-		    console.log(CITY_SAVE_SUCCESS);
+			console.log(CITY_SAVE_SUCCESS);
+			console.log(action);
 			return state - 1;	
 		case CITY_SAVE_ERR:
 		    console.log(CITY_SAVE_ERR);

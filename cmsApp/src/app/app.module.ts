@@ -4,8 +4,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
-
+import { FormsModule } from '@angular/forms'; 
 
 import { counterReducer } from './tourPanel/dashboard/counterReducer';
 import { cityReducer } from './tourPanel/city-component/cityReducer';
@@ -41,7 +40,7 @@ export const ROUTES: Routes = [
     TourPlaceInfoComponentComponent
   ],
   imports: [
-    BrowserModule, HttpModule, RouterModule, NgxDatatableModule,
+    BrowserModule, HttpModule, RouterModule, NgxDatatableModule,FormsModule,
     StoreModule.forRoot([counterReducer, cityReducer]), 
     EffectsModule.forRoot([AuthEffects, CityEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
