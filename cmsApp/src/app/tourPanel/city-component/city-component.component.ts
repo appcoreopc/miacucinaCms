@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET } from './cityReducer';
 import { Observable } from 'rxjs/Observable';
+import { combineAll } from 'rxjs/operator/combineAll';
 
 @Component({
   selector: 'app-city-component',
@@ -29,47 +30,57 @@ export class CityComponentComponent implements OnInit {
   constructor(private store : Store<CityAppState>) { }
   ngOnInit() {
     
-    this.status = this.store.select("status"); 
-    
-    this.status.subscribe( x => {
+    const combined = Observable.combineLatest(
+      this.store.select('status')
+    );
 
-      console.log('status changed!!!!');
-    });
-    
-    Observable.combineLatest(
-      this.store.select('status'), 
-      (status:any) => {
-        console.log(status); 
-        console.log('ulalala');      
-      });
-      
-    
-  }
-  
-  ngAfterViewInit() {
-    this.store.dispatch({     
-      type: CITY_GET });
-    }
 
-    save()
+    this.store.subscribe( a => 
     {
-      this.store.dispatch({
-        name : this.name, 
-        description :  this.description,
-        payload : {
-          name : this.name, 
-          description : this.description
-        },
-        type: CITY_SAVE });
 
-       
+      console.log('subscribing to the entire dataset');
+      console.log(a);
 
+    }); 
+
+    combined.subscribe( a => 
+    {
+      console.log('aaaaaa');
       
+    });
+
+
+    //this.status = this.store.select("status"); 
+    
+    // Observable.combineLatest(
+    //   this.store.select('status'), 
+    //   (status:any) => {
+    //     console.log(status); 
+    //     console.log('ulalala');      
+    //   });    
+    }
+    
+    ngAfterViewInit() {
+      this.store.dispatch({     
+        type: CITY_GET });
       }
       
-      cancel(){
-        this.store.dispatch({ type: CITY_CANCEL });
-      }  
+      save()
+      {
+        this.store.dispatch({
+          name : this.name, 
+          description :  this.description,
+          payload : {
+            name : this.name, 
+            description : this.description
+          },
+          type: CITY_SAVE });
+          
+        }
+        
+        cancel(){
+          this.store.dispatch({ type: CITY_CANCEL });
+        }  
+        
+      }
       
-    }
-    

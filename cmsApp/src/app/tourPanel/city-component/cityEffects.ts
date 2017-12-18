@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import {CITY_SAVE, CITY_CANCEL, CITY_SAVE_SUCCESS, CITY_SAVE_ERR, 
-  CityAppState, CITY_CANCEL_OK, CITY_GET } from './cityReducer';
+  CityAppState, CITY_CANCEL_OK, CITY_GET, CITY_GET_OK } from './cityReducer';
 
 import { APPLICATION_HOST } from '../../applicationSetup';
 import 'rxjs/Rx';
@@ -58,7 +58,7 @@ import 'rxjs/Rx';
       })
       .switchMap(payload => this.http.get(APPLICATION_HOST + '/city')  
       .map(res =>{
-        return { type: CITY_SAVE_SUCCESS, payload: res.json()};
+        return { type: CITY_GET_OK, payload: res.json()};
       })    
       // If request fails, dispatch failed action
       .catch(() => Observable.of({ type: CITY_SAVE_ERR }))

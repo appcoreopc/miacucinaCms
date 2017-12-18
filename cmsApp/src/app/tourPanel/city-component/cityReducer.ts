@@ -9,6 +9,7 @@ export const CITY_GET = 'CITY_GET';
 export const CITY_GET_ERR = 'CITY_GET_ERR';
 export const CITY_GET_OK = 'CITY_GET_ERR';
 
+
 export interface CityAppState {
 	status: number;
 	name : string, 
@@ -24,21 +25,53 @@ export interface CityAppState {
 	type : string; 
   } 
 
-export function cityReducer(status: number = 0, action: Action) {
+export function cityReducer(status: CityAppState, action: Action) {
 	switch (action.type) {
 		case CITY_SAVE:
 		    console.log(CITY_SAVE);
-			return status + 1;
+			return  {
+				status : 4,
+				name : 'nice', 
+				description :  'nice desc',
+				payload : {
+				  name : 'nicer', 
+				  description : 'nicer desc'
+				},
+				type: CITY_SAVE_SUCCESS };
 		case CITY_CANCEL:
 		    console.log(CITY_CANCEL);
-			return status - 1;	
+			return  {
+				status : 4,
+				name : 'nice', 
+				description :  'nice desc',
+				payload : {
+				  name : 'nicer', 
+				  description : 'nicer desc'
+				},
+				type: CITY_SAVE_SUCCESS };	
 		case CITY_SAVE_SUCCESS:
 			console.log(CITY_SAVE_SUCCESS);
 			console.log(action);
-			return 2	
+			return {
+				status : 4,
+				name : 'nice', 
+				description :  'nice desc',
+				payload : {
+				  name : 'nicer', 
+				  description : 'nicer desc'
+				},
+				type: CITY_SAVE_SUCCESS }
 		case CITY_SAVE_ERR:
 		    console.log(CITY_SAVE_ERR);
-			return status - 1;		
+			return  {
+				status : 4,
+				name : 'nice', 
+				description :  'nice desc',
+				payload : {
+				  name : 'nicer', 
+				  description : 'nicer desc'
+				},
+				type: CITY_SAVE_SUCCESS };		
 		default:
 			return status;
 	}
