@@ -30,34 +30,10 @@ export class CityComponentComponent implements OnInit {
   constructor(private store : Store<CityAppState>) { }
   ngOnInit() {
     
-    const combined = Observable.combineLatest(
-      this.store.select('status')
-    );
-
-
     this.store.subscribe( a => 
-    {
-
-      console.log('subscribing to the entire dataset');
-      console.log(a);
-
-    }); 
-
-    combined.subscribe( a => 
-    {
-      console.log('aaaaaa');
-      
-    });
-
-
-    //this.status = this.store.select("status"); 
-    
-    // Observable.combineLatest(
-    //   this.store.select('status'), 
-    //   (status:any) => {
-    //     console.log(status); 
-    //     console.log('ulalala');      
-    //   });    
+    {     
+      this.tryGetState(a);       
+    });     
     }
     
     ngAfterViewInit() {
@@ -80,7 +56,19 @@ export class CityComponentComponent implements OnInit {
         
         cancel(){
           this.store.dispatch({ type: CITY_CANCEL });
-        }  
+        }         
+
+        tryGetState(a : any)
+        {
+          try {
+            console.log(a[1]);
+          }
+          catch (e)
+           {
+             console.log(e);
+           }
+
+        }
         
       }
       
