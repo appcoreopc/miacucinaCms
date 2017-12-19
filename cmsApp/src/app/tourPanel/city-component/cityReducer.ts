@@ -8,8 +8,7 @@ export const CITY_SAVE_ERR = 'CITY_SAVE_ERR';
 export const CITY_CANCEL_OK = 'CITY_CANCEL_OK';
 export const CITY_GET = 'CITY_GET';
 export const CITY_GET_ERR = 'CITY_GET_ERR';
-export const CITY_GET_OK = 'CITY_GET_ERR';
-
+export const CITY_GET_OK = 'CITY_GET_OK';
 
 export interface CityAppState {
 	status: number;
@@ -29,6 +28,11 @@ export interface CityData {
 
 export function cityReducer(status: CityAppState, action: Action) {
 	switch (action.type) {
+		case CITY_GET_OK: 
+		return  {
+			status : 4,		
+			payload : action,
+			type: CITY_MESSAGE_END };
 		case CITY_SAVE:
 		console.log(CITY_SAVE);
 		return  {
@@ -76,5 +80,6 @@ export function cityReducer(status: CityAppState, action: Action) {
 						type: CITY_SAVE_SUCCESS };		
 						default:
 						return status;
-					}
+						case CITY_GET_OK: 						
+					}					
 				}

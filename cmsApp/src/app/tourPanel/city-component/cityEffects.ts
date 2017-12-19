@@ -57,10 +57,9 @@ import 'rxjs/Rx';
         JSON.stringify(action);
       })
       .switchMap(payload => this.http.get(APPLICATION_HOST + '/city')  
-      .map(res =>{
+      .map(res =>{       
         return { type: CITY_GET_OK, payload: res.json()};
-      })    
-      // If request fails, dispatch failed action
+      }) 
       .catch(() => Observable.of({ type: CITY_SAVE_ERR }))
     ); 
     
