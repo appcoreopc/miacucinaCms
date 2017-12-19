@@ -29,57 +29,24 @@ export interface CityData {
 export function cityReducer(status: CityAppState, action: Action) {
 	switch (action.type) {
 		case CITY_GET_OK: 
-		return  {
-			status : 4,		
-			payload : action,
-			type: CITY_MESSAGE_END };
+		  return  { status : 1, payload : action, type: CITY_MESSAGE_END };
 		case CITY_SAVE:
-		console.log(CITY_SAVE);
-		return  {
-			status : 4,
-			name : 'nice', 
-			description :  'nice desc',
-			payload : {
-				name : 'nicer', 
-				description : 'nicer desc'
-			},
-			type: CITY_SAVE_SUCCESS };
-			case CITY_CANCEL:
+		  console.log(CITY_SAVE);
+		  return  { status : 2, type: CITY_MESSAGE_END };	
+		case CITY_CANCEL:
 			console.log(CITY_CANCEL);
-			return  {
-				status : 4,
-				name : 'nice', 
-				description :  'nice desc',
-				payload : {
-					name : 'nicer', 
-					description : 'nicer desc'
-				},
-				type: CITY_MESSAGE_END };	
-				case CITY_SAVE_SUCCESS:
-				console.log(CITY_SAVE_SUCCESS);
-				console.log(action);
-				return {
-					status : 4,
-					name : 'nice', 
-					description :  'nice desc',
-					payload : {
-						name : 'nicer', 
-						description : 'nicer desc'
-					},
-					type: CITY_MESSAGE_END }
-					case CITY_SAVE_ERR:
-					console.log(CITY_SAVE_ERR);
-					return  {
-						status : 4,
-						name : 'nice', 
-						description :  'nice desc',
-						payload : {
-							name : 'nicer', 
-							description : 'nicer desc'
-						},
-						type: CITY_SAVE_SUCCESS };		
-						default:
-						return status;
-						case CITY_GET_OK: 						
+			return  { status : 3, type: CITY_MESSAGE_END };	
+		case CITY_SAVE_SUCCESS:
+			console.log(CITY_SAVE_SUCCESS);
+			return { status : 4, type: CITY_MESSAGE_END }
+		case CITY_SAVE_ERR:
+			console.log(CITY_SAVE_ERR);
+			return  { status : 5, type: CITY_MESSAGE_END };		
+		case CITY_GET_OK: 						
+		    console.log(CITY_GET_OK);
+			return  { status : 6, type: CITY_MESSAGE_END };		
+		default:
+			return status;
+						
 					}					
 				}

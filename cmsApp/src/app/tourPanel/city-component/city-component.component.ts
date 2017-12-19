@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET } from './cityReducer';
+import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS } from './cityReducer';
 import { Observable } from 'rxjs/Observable';
 import { combineAll } from 'rxjs/operator/combineAll';
 
@@ -50,18 +50,26 @@ export class CityComponentComponent implements OnInit {
             name : this.name, 
             description : this.description
           },
-          type: CITY_SAVE });
-          
+          type: CITY_SAVE });          
         }
         
         cancel(){
           this.store.dispatch({ type: CITY_CANCEL });
         }         
 
-        tryGetState(a : any)
+        tryGetState(store : any)
         {
           try {
-            console.log(a[1]);
+            const message = store[1];
+            if (message)
+            {
+                console.log(message);
+                switch (message.status) {
+                  case 4: 
+                    this.status  = "Save successful.";
+                    break;
+                }
+            }
           }
           catch (e)
            {

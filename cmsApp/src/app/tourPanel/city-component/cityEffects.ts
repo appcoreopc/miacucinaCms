@@ -22,8 +22,6 @@ import 'rxjs/Rx';
     @Effect() citySave$ = this.actions$    
     .ofType(CITY_SAVE)   
     .map(action => {    
-      //console.log(action);
-      //console.log(action.description);
       console.log(action.payload)
       return JSON.stringify(action.payload);
     })
