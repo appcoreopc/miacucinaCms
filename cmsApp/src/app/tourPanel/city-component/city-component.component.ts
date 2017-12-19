@@ -11,7 +11,7 @@ import { combineAll } from 'rxjs/operator/combineAll';
 })
 export class CityComponentComponent implements OnInit {
   
-  status: Observable<number>;
+  status: string;
   name : string = ""; 
   description : string = "";
   
@@ -27,12 +27,12 @@ export class CityComponentComponent implements OnInit {
     { name: 'Company' }
   ];
   
-  constructor(private store : Store<CityAppState>) { }
+  constructor(private store : Store<CityAppState[]>) { }
   ngOnInit() {
     
-    this.store.subscribe( a => 
+    this.store.subscribe(appData => 
     {     
-      this.tryGetState(a);       
+      this.tryGetState(appData);       
     });     
     }
     
@@ -57,7 +57,7 @@ export class CityComponentComponent implements OnInit {
           this.store.dispatch({ type: CITY_CANCEL });
         }         
 
-        tryGetState(store : any)
+        tryGetState(store : CityAppState[])
         {
           try {
             const message = store[1];
@@ -67,6 +67,7 @@ export class CityComponentComponent implements OnInit {
                 switch (message.status) {
                   case 4: 
                     this.status  = "Save successful.";
+                    this.resetForm();
                     break;
                 }
             }
@@ -75,8 +76,11 @@ export class CityComponentComponent implements OnInit {
            {
              console.log(e);
            }
-
         }
-        
+
+        resetForm() {
+          this.name = "";
+          this.description = "";
+        }        
       }
       

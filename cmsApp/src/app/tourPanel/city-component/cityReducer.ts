@@ -48,5 +48,5 @@ export function cityReducer(status: CityAppState, action: Action) {
 		default:
 			return status;
 						
-					}					
-				}
+		}					
+	}
