@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
 import { LocationAppState } from '../shared/sharedObjects';
 import { Store } from '@ngrx/store';
+import { LOCATION_GET } from '../shared/sharedObjects';
 
 export class DropDownValue {
  value  : string; 
@@ -16,10 +17,15 @@ export class DropDownValue {
 export class LocationComponentComponent implements OnInit {
 
 
-
   constructor(private store : Store<LocationAppState[]>) { }
 
   ngOnInit() {
   }
+
+
+  ngAfterViewInit() {
+    this.store.dispatch({     
+      type: LOCATION_GET });
+    }
 
 }

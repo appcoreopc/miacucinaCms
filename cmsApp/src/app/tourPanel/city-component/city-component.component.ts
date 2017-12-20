@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS } from './cityReducer';
+import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS } from '../shared/sharedObjects';
 import { Observable } from 'rxjs/Observable';
 import { combineAll } from 'rxjs/operator/combineAll';
 
