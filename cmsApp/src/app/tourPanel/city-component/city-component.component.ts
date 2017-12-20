@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CITY_CANCEL, CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS } from '../shared/sharedObjects';
+import { CITY_CANCEL,  KeyValueData,  CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS, CITY_GET_OK } from '../shared/sharedObjects';
 import { Observable } from 'rxjs/Observable';
 import { combineAll } from 'rxjs/operator/combineAll';
 
@@ -9,12 +9,14 @@ import { combineAll } from 'rxjs/operator/combineAll';
   templateUrl: './city-component.component.html',
   styleUrls: ['./city-component.component.css']
 })
+
 export class CityComponentComponent implements OnInit {
   
   status: string;
   name : string = ""; 
   description : string = "";
-  
+  cities : Array<KeyValueData> = new Array<KeyValueData>();
+      
   rows = [
     { name: 'Austin', gender: 'Male', company: 'Swimlane' },
     { name: 'Dany', gender: 'Male', company: 'KFC' },
@@ -57,17 +59,26 @@ export class CityComponentComponent implements OnInit {
           this.store.dispatch({ type: CITY_CANCEL });
         }         
 
-        tryGetState(store : CityAppState[])
+        tryGetState(store : any)
         {
           try {
             const message = store[1];
-            if (message)
-            {
-                console.log(message);
-                switch (message.status) {
-                  case 4: 
-                    this.status  = "Save successful.";
-                    this.resetForm();
+            if (message)            
+            {          
+                switch (message.data.type) {
+                  case CITY_GET_OK: 
+                    this.status  = "Updating view";                             
+                    var list = JSON.parse(message.data.data);
+                    var cities = list.cities;    
+                    for (var x in cities)
+                    {        
+                      var b = cities[x];    
+                      this.cities.push({
+                        key : b.name,
+                        description : b.description
+                      })   
+                    }                   
+                    console.log(this.cities);
                     break;
                 }
             }

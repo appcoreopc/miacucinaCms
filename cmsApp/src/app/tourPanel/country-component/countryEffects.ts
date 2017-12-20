@@ -22,8 +22,8 @@ import 'rxjs/Rx';
     @Effect() citySave$ = this.actions$    
     .ofType(COUNTRY_SAVE)   
     .map(action => {    
-      console.log(action.payload)
-      return JSON.stringify(action.payload);
+      console.log(action.data)
+      return JSON.stringify(action.data);
     })
     .switchMap(payload =>    
       this.http.post('http://localhost:3001/country/create', payload, this.options)     

@@ -21,8 +21,8 @@ export function cityReducer(status: CityAppState, action: Action) {
 			return  { status : 5, type: CITY_MESSAGE_END };		
 		case CITY_GET_OK: 						
 		    console.log(CITY_GET_OK);
-			return  { status : 6, type: CITY_MESSAGE_END };		
+			return  { status : 6, data : action, type: CITY_MESSAGE_END };		
 		default:
 			return status;						
 		}					
-	}
+	} 

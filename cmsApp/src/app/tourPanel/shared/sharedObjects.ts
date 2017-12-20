@@ -33,7 +33,7 @@ export const LOCATION_GET_OK = 'LOCATION_GET_OK';
 export interface CityAppState {
 	status: number;	
 	type : string; 
-	payload  : CityData; 
+	data  : CityData; 
 	
 }
 export interface CityData {
@@ -41,7 +41,7 @@ export interface CityData {
 	name : string, 
 	description : string;
 	type : string; 
-} 
+}  
 
 export interface LocationAppState {
 	status: number;	

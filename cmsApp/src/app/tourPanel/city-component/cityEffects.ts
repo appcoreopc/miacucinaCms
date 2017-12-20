@@ -21,14 +21,13 @@ import 'rxjs/Rx';
     
     @Effect() citySave$ = this.actions$    
     .ofType(CITY_SAVE)   
-    .map(action => {    
-      console.log(action.payload)
-      return JSON.stringify(action.payload);
+    .map(action => {   
+      return JSON.stringify(action.data);
     })
     .switchMap(payload =>      
       this.http.post('http://localhost:3001/city/create', payload, this.options)      
     )
-    .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json(), status : 2 }))
+    .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json() }))
     .catch(() => Observable.of({ type: CITY_SAVE_ERR }));
        
 
