@@ -26,6 +26,7 @@ def createUser():
     if s is True:  
       db.session.add(obj)
       db.session.commit()
+      print('saved completed!')
       return jsonify('{ok}'), 201
     return jsonify('{}'), 200
 
