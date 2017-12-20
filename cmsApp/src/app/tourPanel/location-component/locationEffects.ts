@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import {CITY_SAVE, CITY_CANCEL, CITY_SAVE_SUCCESS, CITY_SAVE_ERR, 
-  CityAppState, CITY_CANCEL_OK, CITY_GET, CITY_GET_OK } from './cityReducer';
+  CityAppState, CITY_CANCEL_OK, CITY_GET, CITY_GET_OK } from '../shared/sharedObjects';
 
 import { APPLICATION_HOST } from '../../applicationSetup';
 import 'rxjs/Rx';
@@ -54,7 +54,7 @@ import 'rxjs/Rx';
         console.log(action.description);
         JSON.stringify(action);
       })
-      .switchMap(payload => this.http.get(APPLICATION_HOST + '/city')  
+      .switchMap(payload => this.http.get('' + '/city')  
       .map(res =>{       
         return { type: CITY_GET_OK, payload: res.json()};
       }) 
