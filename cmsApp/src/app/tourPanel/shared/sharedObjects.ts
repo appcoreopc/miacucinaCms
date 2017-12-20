@@ -30,14 +30,12 @@ export const LOCATION_GET = 'LOCATION_GET';
 export const LOCATION_GET_ERR = 'LOCATION_GET_ERR';
 export const LOCATION_GET_OK = 'LOCATION_GET_OK';
 
-
 export interface CityAppState {
 	status: number;	
 	type : string; 
 	payload  : CityData; 
 	
 }
-
 export interface CityData {
 	status: number;
 	name : string, 
@@ -48,8 +46,7 @@ export interface CityData {
 export interface LocationAppState {
 	status: number;	
 	type : string; 
-	payload  : CountryData; 
-	
+	payload  : CountryData; 	
 }
 
 export interface CountryData {
@@ -64,3 +61,8 @@ export interface CountryData {
 	type : string; 
 } 
 	
+export interface KeyValueData {
+	key: string;
+	description : string, 
+
+} 

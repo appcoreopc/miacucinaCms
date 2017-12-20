@@ -16,16 +16,46 @@ export class DropDownValue {
 })
 export class LocationComponentComponent implements OnInit {
 
+  status : string;
 
   constructor(private store : Store<LocationAppState[]>) { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
+    this.store.subscribe(appData => 
+      {     
+        this.tryGetState(appData);       
+      });    
   }
-
 
   ngAfterViewInit() {
     this.store.dispatch({     
       type: LOCATION_GET });
+    }
+
+    tryGetState(store : LocationAppState[])
+    {
+      try {
+        const message = store[1];
+        if (message)
+        {
+            console.log(message);
+            switch (message.status) {
+              case 4: 
+                this.status  = "Save successful.";
+                this.resetForm();
+                break;
+            }
+        }
+      }
+      catch (e)
+       {
+         console.log(e);
+       }
+    }
+
+    resetForm() {
+    
     }
 
 }
