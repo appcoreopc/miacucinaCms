@@ -25,36 +25,29 @@ import 'rxjs/Rx';
       console.log(action.payload)
       return JSON.stringify(action.payload);
     })
-    .switchMap(payload => 
-      //console.log('payload logging:');
-      //console.log(payload);
-      this.http.post('http://localhost:3001/city/create', payload, this.options) 
-      //return Observable.of({ type: CITY_SAVE_ERR });
+    .switchMap(payload =>      
+      this.http.post('http://localhost:3001/city/create', payload, this.options)      
     )
     .map(res => ({ type: CITY_SAVE_SUCCESS, data: res.json(), status : 2 }))
     .catch(() => Observable.of({ type: CITY_SAVE_ERR }));
        
 
-    @Effect() cityReset$ = this.actions$
-    // Listen for the 'LOGIN' action
-    .ofType(CITY_CANCEL)
-    // Map the payload into JSON to use as the request body
+    @Effect() cityReset$ = this.actions$  
+    .ofType(CITY_CANCEL)  
     .map(action => 
       {
         return ({ type: CITY_CANCEL_OK});
       }); 
       
 
-      @Effect() cityGet$ = this.actions$
-      // Listen for the 'LOGIN' action
-      .ofType(CITY_GET)
-      // Map the payload into JSON to use as the request body
+      @Effect() cityGet$ = this.actions$    
+      .ofType(CITY_GET)     
       .map(action => {   
         JSON.stringify(action);
       })
       .switchMap(payload => this.http.get('http://localhost:3001' + '/city')  
-      .map(res =>{       
-        return { type: CITY_GET_OK, payload: res.json()};
+      .map(res => {       
+        return { type: CITY_GET_OK, data: res.json()};
       }) 
       .catch(() => Observable.of({ type: CITY_SAVE_ERR }))
     ); 
