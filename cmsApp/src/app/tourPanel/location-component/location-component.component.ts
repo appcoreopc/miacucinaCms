@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
+import { LocationAppState } from '../shared/sharedObjects';
+import { Store } from '@ngrx/store';
 
 export class DropDownValue {
  value  : string; 
@@ -13,13 +15,9 @@ export class DropDownValue {
 })
 export class LocationComponentComponent implements OnInit {
 
-  // @Input()
-  // countries : DropDownValue[];
-  
-  // @Input()
-  // cities : DropDownValue[];
 
-  constructor() { }
+
+  constructor(private store : Store<LocationAppState[]>) { }
 
   ngOnInit() {
   }
