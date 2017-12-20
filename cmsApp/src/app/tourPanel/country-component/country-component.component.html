@@ -3,42 +3,41 @@
 </p>
 
 <div> 
-    <ul>
-
-        <li>  
-            <div id="status">  
-            </div>
-          </li>
-  
-
-          
-      <li>  
-        <div> Name 
-        </div>
-        <div>
-          <input type="text" id="name" />
-        </div>
-      </li>
-      <li>  
-        <div> Description 
-        </div>
-        <div>
-          <input type="text" id="description" />
-        </div>
-      </li>
-      
-      <li>  
-        <div> 
-        </div>
-        <div>
-          <button onclick="save()"> Save</button>
-          <button onclick="cancel()"> Cancel</button>
-        </div>
-      </li>
-
-      <li>
-      </li>
-      
-    </ul>    
-  </div>
+  <ul>
+    
+    <li>  
+      <div id="status">  {{status}}
+      </div>
+    </li>
+    
+    
+    <li>  
+      <div> Name 
+      </div>
+      <div>
+        <input type="text" id="name" [(ngModel)]="name" />
+      </div>
+    </li>
+    <li>  
+      <div> Description 
+      </div>
+      <div>
+        <input type="text" id="description" [(ngModel)]="description" />
+      </div>
+    </li>
+    
+    <li>  
+      <div> 
+      </div>
+      <div>
+        <button (click)="save()"> Save</button>
+        <button (click)="cancel()"> Cancel</button>
+      </div>
+    </li>
+    
+    <li>
+    </li>
+    
+  </ul>    
+</div>
 

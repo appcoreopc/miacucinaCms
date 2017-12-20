@@ -6,6 +6,7 @@ import {CITY_SAVE, CITY_CANCEL, CITY_SAVE_SUCCESS, CITY_SAVE_ERR,
   CityAppState, CITY_CANCEL_OK, CITY_GET, CITY_GET_OK } from '../shared/sharedObjects';
 
 import { APPLICATION_HOST } from '../../applicationSetup';
+
 import 'rxjs/Rx';
  
   @Injectable()
@@ -42,16 +43,13 @@ import 'rxjs/Rx';
     .map(action => 
       {
         return ({ type: CITY_CANCEL_OK});
-      }); 
-      
+      });       
 
       @Effect() cityGet$ = this.actions$
       // Listen for the 'LOGIN' action
       .ofType(CITY_GET)
       // Map the payload into JSON to use as the request body
-      .map(action => {    
-        console.log(action.name);
-        console.log(action.description);
+      .map(action => {        
         JSON.stringify(action);
       })
       .switchMap(payload => this.http.get('' + '/city')  

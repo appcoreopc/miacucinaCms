@@ -49,9 +49,7 @@ import 'rxjs/Rx';
       // Listen for the 'LOGIN' action
       .ofType(CITY_GET)
       // Map the payload into JSON to use as the request body
-      .map(action => {    
-        console.log(action.name);
-        console.log(action.description);
+      .map(action => {   
         JSON.stringify(action);
       })
       .switchMap(payload => this.http.get('http://localhost:3001' + '/city')  

@@ -10,6 +10,9 @@ import { counterReducer } from './tourPanel/dashboard/counterReducer';
 import { cityReducer } from './tourPanel/city-component/cityReducer';
 import { CityEffects } from './tourPanel/city-component/cityEffects';
 
+import { CountryReducer } from './tourPanel/country-component/countryReducer';
+import { CountryEffects } from './tourPanel/country-component/countryEffects';
+
 import { AuthEffects  } from './tourPanel/dashboard/dashboardEffects';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -41,8 +44,8 @@ export const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule, HttpModule, RouterModule, NgxDatatableModule,FormsModule,
-    StoreModule.forRoot([counterReducer, cityReducer]), 
-    EffectsModule.forRoot([AuthEffects, CityEffects]), /* Start monitoring app's side effects */
+    StoreModule.forRoot([counterReducer, cityReducer, CountryReducer]), 
+    EffectsModule.forRoot([AuthEffects, CityEffects, CountryEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
   ],  
   providers: [],
