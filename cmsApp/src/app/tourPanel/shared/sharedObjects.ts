@@ -46,7 +46,8 @@ export interface CityData {
 export interface LocationAppState {
 	status: number;	
 	type : string; 
-	payload  : CountryData; 	
+	payload  : CountryData; 
+
 }
 
 export interface CountryData {
@@ -59,6 +60,7 @@ export interface CountryData {
 	lat : string;
 	imageUrl : string;
 	type : string; 
+	
 } 
 	
 export interface KeyValueData {

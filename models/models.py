@@ -73,7 +73,7 @@ class Country(db.Model):
     name = Column(String(50), unique=True)
     description = Column(String(120), unique=True)
     modifiedDate = Column(DateTime)
-    cities = db.relationship('City', backref='country', lazy=True)
+    #cities = db.relationship('City', backref='country', lazy=True)
 
     def __init__(self, name=None, description=None):
         self.name = name
@@ -89,7 +89,7 @@ class City(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True)
     description = Column(String(120), unique=True)
-    countryId = db.Column(db.Integer, db.ForeignKey('country.id'))
+    #countryId = db.Column(db.Integer, db.ForeignKey('country.id'))
 
     def __init__(self, name=None, description=None):
         self.name = name

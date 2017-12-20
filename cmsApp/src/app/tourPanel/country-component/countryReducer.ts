@@ -4,22 +4,22 @@ import { COUNTRY_GET_OK, CityAppState, COUNTRY_MESSAGE_END, COUNTRY_SAVE, COUNTR
 export function CountryReducer(status: CityAppState, action: Action) {
 	switch (action.type) {
 		case COUNTRY_GET_OK: 
-		  return  { status : 1, payload : action, type: COUNTRY_MESSAGE_END };
+		  return  { status : 100, payload : action, type: COUNTRY_MESSAGE_END };
 		case COUNTRY_SAVE:
 		  console.log(COUNTRY_SAVE);
-		  return  { status : 2, type: COUNTRY_MESSAGE_END };	
+		  return  { status : 102, type: COUNTRY_MESSAGE_END };	
 		case COUNTRY_CANCEL:
 			console.log(COUNTRY_CANCEL);
-			return  { status : 3, type: COUNTRY_MESSAGE_END };	
+			return  { status : 103, type: COUNTRY_MESSAGE_END };	
 		case COUNTRY_SAVE_SUCCESS:
 			console.log(COUNTRY_SAVE_SUCCESS);
-			return { status : 4, type: COUNTRY_MESSAGE_END }
+			return { status : 104, type: COUNTRY_MESSAGE_END }
 		case COUNTRY_SAVE_ERR:
 			console.log(COUNTRY_SAVE_ERR);
-			return  { status : 5, type: COUNTRY_MESSAGE_END };		
+			return  { status : 105, type: COUNTRY_MESSAGE_END };		
 		case COUNTRY_GET_OK: 						
 		    console.log(COUNTRY_GET_OK);
-			return  { status : 6, type: COUNTRY_MESSAGE_END };		
+			return  { status : 106, type: COUNTRY_MESSAGE_END };		
 		default:
 			return status;
 						

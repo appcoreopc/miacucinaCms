@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core/src/metadata/directives';
 import { LocationAppState } from '../shared/sharedObjects';
 import { Store } from '@ngrx/store';
-import { LOCATION_GET } from '../shared/sharedObjects';
+import { LOCATION_GET, CITY_GET, COUNTRY_GET } from '../shared/sharedObjects';
 
 export class DropDownValue {
  value  : string; 
@@ -24,16 +24,20 @@ export class LocationComponentComponent implements OnInit {
   {
     this.store.subscribe(appData => 
       {     
-        this.tryGetState(appData);       
+        this.handleStore(appData);       
       });    
   }
 
   ngAfterViewInit() {
-    this.store.dispatch({     
-      type: LOCATION_GET });
+
+     this.store.dispatch({     
+      type: CITY_GET });
+
+     this.store.dispatch({     
+         type: COUNTRY_GET });       
     }
 
-    tryGetState(store : LocationAppState[])
+    handleStore(store : LocationAppState[])
     {
       try {
         const message = store[1];
