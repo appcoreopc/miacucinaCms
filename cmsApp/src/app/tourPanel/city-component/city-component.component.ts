@@ -16,17 +16,12 @@ export class CityComponentComponent implements OnInit {
   name : string = ""; 
   description : string = "";
   cities : Array<KeyValueData> = new Array<KeyValueData>();
-      
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
+
+  rows = this.cities;
   
   columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
+    { prop: 'key' },
+    { name: 'description' }
   ];
   
   constructor(private store : Store<CityAppState[]>) { }
