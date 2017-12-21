@@ -32,7 +32,7 @@ export class CountryComponentComponent implements OnInit {
 
      this.storeSubscription = this.store.subscribe(appData => 
       {     
-         this.tryGetState(appData);       
+        this.handleMessage(this.messageService.tryGetState(appData));       
        });     
     }
 
@@ -62,38 +62,34 @@ export class CountryComponentComponent implements OnInit {
           this.store.dispatch({ type: COUNTRY_CANCEL });
         }         
     
-    tryGetState(store : any)
+    handleMessage(store : any)
     {
       try {
-        console.log(store);
-        const message = store[2];
-        console.log('event sub');
-        console.log(message);
+        const message = store;    
         if (message)            
         {          
-            console.log(message);
+            //console.log(message);
             switch (message.data.type) {
               case COUNTRY_GET_OK: 
-                this.status  = "Updating view";                             
+                this.status  = "Updating view.....";                             
                 var list = JSON.parse(message.data.data);
-                var cities = list.countries;    
-                for (var x in cities)
+                var countries = list.countries;    
+                for (var country in countries)
                 {        
-                  var b = cities[x];    
+                  var eachCountry = countries[country];    
                   this.countries.push({
-                    key : b.name,
-                    description : b.description
+                    key : eachCountry.name,
+                    description : eachCountry.description
                   })   
-                }                   
-                console.log(this.countries);
+                }    
                 break;
             }
         }
       }
       catch (e)
-           {
+      {
              console.log(e);
-           }
+      }
     }
           
     resetForm() {

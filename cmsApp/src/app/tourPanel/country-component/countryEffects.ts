@@ -44,7 +44,7 @@ import 'rxjs/Rx';
       .map(action => {          
         JSON.stringify(action);
       })
-      .switchMap(payload => this.http.get('http://localhost:3001' + '/country')  
+      .switchMap(data => this.http.get('http://localhost:3001' + '/country')  
       .map(res =>{      
         return { type: COUNTRY_GET_OK, data: res.json()};
       }) 
