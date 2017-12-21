@@ -3,6 +3,7 @@ import { COUNTRY_GET, COUNTRY_GET_OK, COUNTRY_SAVE, KeyValueData, COUNTRY_CANCEL
 import { Store } from '@ngrx/store';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { MessageService } from '../shared/messageService';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-country-component',
@@ -16,7 +17,8 @@ export class CountryComponentComponent implements OnInit {
   description : string;
 
   countries : Array<KeyValueData> = new Array<KeyValueData>();
-  
+  storeSubscription : Subscription;
+
   rows = this.countries;
 
   columns = [
@@ -28,10 +30,15 @@ export class CountryComponentComponent implements OnInit {
   
   ngOnInit() {
 
-    // this.store.subscribe(appData => 
-    //   {     
-    //     this.tryGetState(appData);       
-    //   });     
+     this.storeSubscription = this.store.subscribe(appData => 
+      {     
+         this.tryGetState(appData);       
+       });     
+    }
+
+    ngDestroy() { 
+      
+      this.storeSubscription.unsubscribe();
     }
     
     ngAfterViewInit() {

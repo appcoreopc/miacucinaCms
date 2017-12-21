@@ -4,6 +4,7 @@ import { CITY_CANCEL,  KeyValueData,  CITY_SAVE, CityAppState, CITY_GET, CITY_SA
 import { Observable } from 'rxjs/Observable';
 import { combineAll } from 'rxjs/operator/combineAll';
 import { MessageService } from '../shared/messageService';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-city-component',
@@ -13,10 +14,12 @@ import { MessageService } from '../shared/messageService';
 
 export class CityComponentComponent implements OnInit {
   
-  status: string;
+  status: Observable<number>;
   name : string = ""; 
   description : string = "";
-  cities : Array<KeyValueData> = new Array<KeyValueData>();
+  cities : Array<KeyValueData> = new Array<KeyValueData>(); 
+
+  citySubscription : Subscription; 
 
   rows = this.cities;
   
@@ -25,15 +28,28 @@ export class CityComponentComponent implements OnInit {
     { name: 'description' }
   ];
   
-  constructor(private store : Store<CityAppState[]>, private messageService : MessageService) { }
+  constructor(private store : Store<CityAppState>, private messageService : MessageService) { }
+  
   ngOnInit() {
-    
+
+    this.citySubscription = this.store.subscribe((a: any) => {
+      console.log('updating city status type');
+      console.log(a);
+    });
+
     // this.store.subscribe(appData => 
     // {     
     //   this.tryGetState(appData);       
-    // });     
+    // });    
+
     }
-    
+
+    ngOnDestroy()
+    {
+      console.log('removing subscription');
+      this.citySubscription.unsubscribe();
+    }
+
     ngAfterViewInit() {
       this.store.dispatch({     
         type: CITY_GET });
@@ -63,7 +79,7 @@ export class CityComponentComponent implements OnInit {
             {          
                 switch (message.data.type) {
                   case CITY_GET_OK: 
-                    this.status  = "Updating view";                             
+                    //this.status  = "Updating view";                             
                     var list = JSON.parse(message.data.data);
                     var cities = list.cities;    
                     for (var x in cities)
