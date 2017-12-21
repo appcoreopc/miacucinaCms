@@ -18,9 +18,9 @@ export class CityComponentComponent implements OnInit {
   name : string = ""; 
   description : string = "";
   cities : Array<KeyValueData> = new Array<KeyValueData>(); 
-
+  
   citySubscription : Subscription; 
-
+  
   rows = this.cities;
   
   columns = [
@@ -31,79 +31,71 @@ export class CityComponentComponent implements OnInit {
   constructor(private store : Store<CityAppState>, private messageService : MessageService) { }
   
   ngOnInit() {
-
-    this.citySubscription = this.store.subscribe((a: any) => {
-      console.log('updating city status type');
-      console.log(a);
-    });
-
-    // this.store.subscribe(appData => 
-    // {     
-    //   this.tryGetState(appData);       
-    // });    
-
+    
+    this.citySubscription = this.store.subscribe(appData => {
+      this.handleMessage(this.messageService.tryGetState(appData))   
+    }); 
+  }
+  
+  ngOnDestroy()
+  {     
+    this.citySubscription.unsubscribe();
+  }
+  
+  ngAfterViewInit() {
+    this.store.dispatch({     
+      type: CITY_GET });
     }
-
-    ngOnDestroy()
+    
+    save()
     {
-      console.log('removing subscription');
-      this.citySubscription.unsubscribe();
-    }
-
-    ngAfterViewInit() {
-      this.store.dispatch({     
-        type: CITY_GET });
+      this.store.dispatch({
+        name : this.name, 
+        description :  this.description,
+        payload : {
+          name : this.name, 
+          description : this.description
+        },
+        type: CITY_SAVE });          
       }
       
-      save()
+      cancel(){
+        this.store.dispatch({ type: CITY_CANCEL });
+      }         
+      
+      handleMessage(store : any)
       {
-        this.store.dispatch({
-          name : this.name, 
-          description :  this.description,
-          payload : {
-            name : this.name, 
-            description : this.description
-          },
-          type: CITY_SAVE });          
-        }
-        
-        cancel(){
-          this.store.dispatch({ type: CITY_CANCEL });
-        }         
-
-        tryGetState(store : any)
-        {
-          try {
-            const message = store[1];
-            if (message)            
-            {          
-                switch (message.data.type) {
-                  case CITY_GET_OK: 
-                    //this.status  = "Updating view";                             
-                    var list = JSON.parse(message.data.data);
-                    var cities = list.cities;    
-                    for (var x in cities)
-                    {        
-                      var b = cities[x];    
-                      this.cities.push({
-                        key : b.name,
-                        description : b.description
-                      })   
-                    }                   
-                    console.log(this.cities);
-                    break;
-                }
+        try {
+          const message = store;
+          if (message)            
+          {          
+            switch (message.data.type) {
+              case CITY_GET_OK: 
+                                          
+              var list = JSON.parse(message.data.data);
+              var cities = list.cities;    
+              for (var city in cities)
+              {        
+                var cityInfo = cities[city];    
+                this.cities.push({
+                  key : cityInfo.name,
+                  description : cityInfo.description
+                })   
+              }                   
+              
+              break;
             }
           }
-          catch (e)
-           {
-             console.log(e);
-           }
         }
-
-        resetForm() {
-          this.name = "";
-          this.description = "";
-        }        
+        catch (e)
+        {
+          console.log(e);
+        }
       }
       
+      resetForm() {
+        this.name = "";
+        this.description = "";
+      }        
+    }
+    
