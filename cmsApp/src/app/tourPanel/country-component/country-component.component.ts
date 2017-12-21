@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { COUNTRY_GET, COUNTRY_GET_OK, COUNTRY_SAVE, KeyValueData, COUNTRY_CANCEL, CityAppState, COUNTRY_SAVE_SUCCESS } from '../shared/sharedObjects';
 import { Store } from '@ngrx/store';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { MessageService } from '../shared/messageService';
 
 @Component({
   selector: 'app-country-component',
@@ -22,14 +24,14 @@ export class CountryComponentComponent implements OnInit {
     { name: 'description' }
   ];
 
-  constructor(private store : Store<CityAppState[]>) { }
+  constructor(private store : Store<CityAppState[]>, private messageService : MessageService) { }
   
   ngOnInit() {
 
-    this.store.subscribe(appData => 
-      {     
-        this.tryGetState(appData);       
-      });     
+    // this.store.subscribe(appData => 
+    //   {     
+    //     this.tryGetState(appData);       
+    //   });     
     }
     
     ngAfterViewInit() {

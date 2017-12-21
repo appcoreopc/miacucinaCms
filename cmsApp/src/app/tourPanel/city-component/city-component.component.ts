@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { CITY_CANCEL,  KeyValueData,  CITY_SAVE, CityAppState, CITY_GET, CITY_SAVE_SUCCESS, CITY_GET_OK } from '../shared/sharedObjects';
 import { Observable } from 'rxjs/Observable';
 import { combineAll } from 'rxjs/operator/combineAll';
+import { MessageService } from '../shared/messageService';
 
 @Component({
   selector: 'app-city-component',
@@ -24,13 +25,13 @@ export class CityComponentComponent implements OnInit {
     { name: 'description' }
   ];
   
-  constructor(private store : Store<CityAppState[]>) { }
+  constructor(private store : Store<CityAppState[]>, private messageService : MessageService) { }
   ngOnInit() {
     
-    this.store.subscribe(appData => 
-    {     
-      this.tryGetState(appData);       
-    });     
+    // this.store.subscribe(appData => 
+    // {     
+    //   this.tryGetState(appData);       
+    // });     
     }
     
     ngAfterViewInit() {
