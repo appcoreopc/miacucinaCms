@@ -19,8 +19,7 @@ export class CityComponentComponent implements OnInit {
   description : string = "";
   cities : Array<KeyValueData> = new Array<KeyValueData>(); 
   
-  citySubscription : Subscription; 
-  
+  citySubscription : Subscription;   
   rows = this.cities;
   
   columns = [
@@ -70,19 +69,17 @@ export class CityComponentComponent implements OnInit {
           if (message)            
           {          
             switch (message.data.type) {
-              case CITY_GET_OK: 
-                                          
-              var list = JSON.parse(message.data.data);
-              var cities = list.cities;    
-              for (var city in cities)
-              {        
-                var cityInfo = cities[city];    
-                this.cities.push({
-                  key : cityInfo.name,
-                  description : cityInfo.description
-                })   
-              }                   
-              
+              case CITY_GET_OK:                                           
+               var list = JSON.parse(message.data.data);
+               var cities = list.cities;    
+               for (var city in cities)
+               {        
+                  var cityInfo = cities[city];    
+                  this.cities.push({
+                    key : cityInfo.name,
+                    description : cityInfo.description
+                  })   
+                }  
               break;
             }
           }
