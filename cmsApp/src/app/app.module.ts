@@ -27,6 +27,8 @@ import { CityComponentComponent } from './tourPanel/city-component/city-componen
 import { LocationComponentComponent } from './tourPanel/location-component/location-component.component';
 import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-component/tour-place-info-component.component';
 
+import { MessageService} from './tourPanel/shared/messageService';
+
 export const ROUTES: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'location', component: LocationComponentComponent },
@@ -50,7 +52,7 @@ export const ROUTES: Routes = [
     EffectsModule.forRoot([CityEffects, CountryEffects, LocationEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
   ],  
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 
