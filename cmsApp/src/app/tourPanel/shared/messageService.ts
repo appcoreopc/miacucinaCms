@@ -3,24 +3,16 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Injectable() 
-export class MessageService {  
-    
-    presenceCount : number = 0;
-    
+export class MessageService {     
+       
     constructor(private store : Store<any>)
     {
-        if (this.presenceCount == 0)
-        {
             this.store.subscribe(appData => 
                 {     
                     console.log('initiating subscription.');
                     this.tryGetState(appData);
                 }); 
-            }
-                        
-            this.presenceCount++;
-            console.log(this.presenceCount);            
-        }
+    }
         
         tryGetState(store : any)
         {
