@@ -7,21 +7,20 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class MessageService {   
 
     private _navItemSource = new BehaviorSubject<any>(0);    
-
     navItem$ = this._navItemSource.asObservable();
 
     constructor(private store : Store<any>)
     {                
         this.store.subscribe(appData => 
         {     
-                    console.log('initiating subscription.');
-                    this.tryGetState(appData);
+            //console.log('initiating subscription.');
+            this.tryGetState(appData);
         }); 
     }
         
     tryGetState(store : any)
     {
-            try {
+        try {
                 console.log(store);                
                 for (var property in store)
                 {
@@ -29,6 +28,7 @@ export class MessageService {
                     if (messageValue)
                     {
                         console.log(messageValue);
+                        this._navItemSource.next(messageValue);
                         break;                    
                     }     
                 }       
