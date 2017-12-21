@@ -45,11 +45,8 @@ import 'rxjs/Rx';
         JSON.stringify(action);
       })
       .switchMap(payload => this.http.get('http://localhost:3001' + '/country')  
-      .map(res =>{       
-        console.log('country effects');
-        console.log(res);
-
-        return { type: COUNTRY_GET_OK, payload: res.json()};
+      .map(res =>{      
+        return { type: COUNTRY_GET_OK, data: res.json()};
       }) 
       .catch(() => Observable.of({ type: COUNTRY_GET_ERR }))
     ); 

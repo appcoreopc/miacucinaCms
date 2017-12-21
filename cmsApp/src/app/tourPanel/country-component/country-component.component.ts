@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COUNTRY_GET, COUNTRY_SAVE, COUNTRY_CANCEL, CityAppState, COUNTRY_SAVE_SUCCESS } from '../shared/sharedObjects';
+import { COUNTRY_GET, COUNTRY_GET_OK, COUNTRY_SAVE, KeyValueData, COUNTRY_CANCEL, CityAppState, COUNTRY_SAVE_SUCCESS } from '../shared/sharedObjects';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -12,16 +12,26 @@ export class CountryComponentComponent implements OnInit {
   status : string; 
   name : string; 
   description : string;
+
+  countries : Array<KeyValueData> = new Array<KeyValueData>();
   
+  rows = this.countries;
+
+  columns = [
+    { prop: 'key' },
+    { name: 'description' }
+  ];
+
   constructor(private store : Store<CityAppState[]>) { }
   
   ngOnInit() {
+
     this.store.subscribe(appData => 
       {     
         this.tryGetState(appData);       
       });     
     }
-
+    
     ngAfterViewInit() {
       this.store.dispatch({     
         type: COUNTRY_GET });
@@ -42,30 +52,41 @@ export class CountryComponentComponent implements OnInit {
         cancel(){
           this.store.dispatch({ type: COUNTRY_CANCEL });
         }         
-
     
-    tryGetState(store : CityAppState[])
+    tryGetState(store : any)
     {
       try {
-        const message = store[1];
-        if (message)
-        {
-          console.log(message);
-          switch (message.status) {
-            case 4: 
-            this.status  = "Save successful.";
-            this.resetForm();
-            break;
-          }
+        console.log(store);
+        const message = store[2];
+        console.log('event sub');
+        console.log(message);
+        if (message)            
+        {          
+            console.log(message);
+            switch (message.data.type) {
+              case COUNTRY_GET_OK: 
+                this.status  = "Updating view";                             
+                var list = JSON.parse(message.data.data);
+                var cities = list.countries;    
+                for (var x in cities)
+                {        
+                  var b = cities[x];    
+                  this.countries.push({
+                    key : b.name,
+                    description : b.description
+                  })   
+                }                   
+                console.log(this.countries);
+                break;
+            }
         }
       }
       catch (e)
-      {
-        console.log(e);
-      }
+           {
+             console.log(e);
+           }
     }
-    
-    
+          
     resetForm() {
       this.name = ""; 
       this.description = "";
