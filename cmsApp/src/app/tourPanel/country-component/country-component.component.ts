@@ -15,29 +15,54 @@ export class CountryComponentComponent implements OnInit {
   status : string; 
   name : string; 
   description : string;
-
+  
   countries : Array<KeyValueData> = new Array<KeyValueData>();
   storeSubscription : Subscription;
-
+  
   rows = this.countries;
-
+  
   columns = [
     { prop: 'key' },
     { name: 'description' }
   ];
 
+  countryMessage : string[] = [COUNTRY_GET_OK, COUNTRY_SAVE_SUCCESS];
+  
   constructor(private store : Store<CityAppState[]>, private messageService : MessageService) { }
   
   ngOnInit() {
-
-     this.storeSubscription = this.store.subscribe(appData => 
-      {     
-        this.handleMessage(this.messageService.tryGetState(appData));       
-       });     
+    
+    this.storeSubscription = this.store.subscribe(appData => 
+      {    
+        this.handleMessage(this.getMessage(appData));       
+      });  
     }
-
-    ngDestroy() { 
-      
+    
+    getMessage(store : any)
+    {     
+      try {                 
+        console.log('in deepth look at store:local');
+        console.log(store);  
+        for (var property in store)
+        {          
+          var messageValue = store[property];
+          if (messageValue)
+          {
+            if (this.countryMessage.indexOf(messageValue.type) > -1)
+            {
+              return messageValue;
+            }            
+          }      
+        }    
+      }
+      catch (e)
+      {
+        console.log(e);
+      }
+    }    
+    
+    
+    ngDestroy() {       
       this.storeSubscription.unsubscribe();
     }
     
@@ -45,7 +70,7 @@ export class CountryComponentComponent implements OnInit {
       this.store.dispatch({     
         type: COUNTRY_GET });
       }
-
+      
       save()
       {
         this.store.dispatch({
@@ -61,17 +86,20 @@ export class CountryComponentComponent implements OnInit {
         cancel(){
           this.store.dispatch({ type: COUNTRY_CANCEL });
         }         
-    
-    handleMessage(store : any)
-    {
-      try {
-        const message = store;    
-        if (message)            
-        {          
-            //console.log(message);
-            switch (message.data.type) {
-              case COUNTRY_GET_OK: 
-                this.status  = "Updating view.....";                             
+        
+        handleMessage(store : any)
+        {
+          try {
+            const message = store;   
+            console.log('data message'); 
+            console.log(message);
+            if (message)            
+            {          
+              console.log(message.type);
+              switch (message.type) {              
+                case COUNTRY_GET_OK: 
+                this.status  = "Updating view.....";   
+                this.countries.length = 0;                         
                 var list = JSON.parse(message.data.data);
                 var countries = list.countries;    
                 for (var country in countries)
@@ -83,18 +111,18 @@ export class CountryComponentComponent implements OnInit {
                   })   
                 }    
                 break;
+              }
             }
+          }
+          catch (e)
+          {
+            console.log(e);
+          }
+        }
+        
+        resetForm() {
+          this.name = ""; 
+          this.description = "";
         }
       }
-      catch (e)
-      {
-             console.log(e);
-      }
-    }
-          
-    resetForm() {
-      this.name = ""; 
-      this.description = "";
-    }
-  }
-  
+      
