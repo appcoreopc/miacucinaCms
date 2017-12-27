@@ -20,7 +20,7 @@ export class CityComponentComponent implements OnInit {
   cities : Array<KeyValueData> = new Array<KeyValueData>(); 
   
   citySubscription : Subscription;  
-
+  relatedMessages : string[] = [CITY_GET_OK, CITY_SAVE_SUCCESS];
   rows = this.cities;
   
   columns = [
@@ -33,7 +33,8 @@ export class CityComponentComponent implements OnInit {
   ngOnInit() {   
     
     this.citySubscription = this.store.subscribe(appData => {
-      this.handleMessage(this.messageService.tryGetState(appData))   
+      //this.handleMessage(this.messageService.tryGetState(appData)) 
+      this.handleMessage(this.getMessage(appData));  
     }); 
   }
   
@@ -48,6 +49,27 @@ export class CityComponentComponent implements OnInit {
       type: CITY_GET });
     }
     
+    getMessage(store : any)
+    {     
+      try {                 
+        
+        for (var property in store)
+        {          
+          var messageValue = store[property];
+          if (messageValue)
+          {
+            if (this.relatedMessages.indexOf(messageValue.type) > -1)
+            { 
+              return messageValue;
+            }            
+          }      
+        }    
+      }
+      catch (e)
+      {
+        console.log(e);
+      }
+    }    
 
     save()
     {

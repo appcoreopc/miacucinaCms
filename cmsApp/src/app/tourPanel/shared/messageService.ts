@@ -13,11 +13,8 @@ export class MessageService  {
     
     tryGetState(store : any)
     {
-        try {
-               
-            console.log('in deepth look at store');
-            console.log(store);
-
+        try {              
+            
             for (var property in store)
             {
                 var messageValue = store[property];

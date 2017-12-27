@@ -26,7 +26,7 @@ export class CountryComponentComponent implements OnInit {
     { name: 'description' }
   ];
 
-  countryMessage : string[] = [COUNTRY_GET_OK, COUNTRY_SAVE_SUCCESS];
+  countryRelatedMessages : string[] = [COUNTRY_GET_OK, COUNTRY_SAVE_SUCCESS];
   
   constructor(private store : Store<CityAppState[]>, private messageService : MessageService) { }
   
@@ -41,15 +41,14 @@ export class CountryComponentComponent implements OnInit {
     getMessage(store : any)
     {     
       try {                 
-        console.log('in deepth look at store:local');
-        console.log(store);  
+        
         for (var property in store)
         {          
           var messageValue = store[property];
           if (messageValue)
           {
-            if (this.countryMessage.indexOf(messageValue.type) > -1)
-            {
+            if (this.countryRelatedMessages.indexOf(messageValue.type) > -1)
+            { 
               return messageValue;
             }            
           }      
@@ -60,8 +59,7 @@ export class CountryComponentComponent implements OnInit {
         console.log(e);
       }
     }    
-    
-    
+        
     ngDestroy() {       
       this.storeSubscription.unsubscribe();
     }
@@ -90,9 +88,7 @@ export class CountryComponentComponent implements OnInit {
         handleMessage(store : any)
         {
           try {
-            const message = store;   
-            console.log('data message'); 
-            console.log(message);
+            const message = store;  
             if (message)            
             {          
               console.log(message.type);

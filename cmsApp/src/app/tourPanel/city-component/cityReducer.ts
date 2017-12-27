@@ -6,16 +6,15 @@ import {CITY_SAVE, CITY_CANCEL, CITY_SAVE_SUCCESS,
 export function cityReducer(status: CityAppState, action: Action) {
 	switch (action.type) {
 		case CITY_GET_OK: 
-		  return  { status : 1, data : action, type: CITY_MESSAGE_END };
-		case CITY_SAVE:
-		  console.log(CITY_SAVE);
+		  return  { status : 1, data : action, type: CITY_GET_OK };
+		case CITY_SAVE:		  
 		  return  { status : 2, data : action, type: CITY_MESSAGE_END };	
 		case CITY_CANCEL:
 			console.log(CITY_CANCEL);
 			return  { status : 3, type: CITY_MESSAGE_END };	
 		case CITY_SAVE_SUCCESS:
 			console.log(CITY_SAVE_SUCCESS);
-			return { status : 4, type: CITY_MESSAGE_END }
+			return { status : 4, type: CITY_SAVE_SUCCESS }
 		case CITY_SAVE_ERR:
 			console.log(CITY_SAVE_ERR);
 			return  { status : 5, type: CITY_MESSAGE_END };			
