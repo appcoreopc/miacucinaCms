@@ -19,7 +19,8 @@ export class CityComponentComponent implements OnInit {
   description : string = "";
   cities : Array<KeyValueData> = new Array<KeyValueData>(); 
   
-  citySubscription : Subscription;   
+  citySubscription : Subscription;  
+
   rows = this.cities;
   
   columns = [
@@ -29,7 +30,7 @@ export class CityComponentComponent implements OnInit {
   
   constructor(private store : Store<CityAppState>, private messageService : MessageService) { }
   
-  ngOnInit() {
+  ngOnInit() {   
     
     this.citySubscription = this.store.subscribe(appData => {
       this.handleMessage(this.messageService.tryGetState(appData))   
@@ -42,10 +43,12 @@ export class CityComponentComponent implements OnInit {
   }
   
   ngAfterViewInit() {
+
     this.store.dispatch({     
       type: CITY_GET });
     }
     
+
     save()
     {
       this.store.dispatch({
@@ -64,12 +67,15 @@ export class CityComponentComponent implements OnInit {
       
       handleMessage(store : any)
       {
+
         try {
           const message = store;
           if (message)            
-          {          
+          {      
+          
             switch (message.data.type) {
-              case CITY_GET_OK:                                           
+              case CITY_GET_OK:   
+               this.cities.length = 0;
                var list = JSON.parse(message.data.data);
                var cities = list.cities;    
                for (var city in cities)
