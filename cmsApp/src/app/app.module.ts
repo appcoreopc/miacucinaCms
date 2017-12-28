@@ -26,6 +26,7 @@ import { CountryComponentComponent } from './tourPanel/country-component/country
 import { CityComponentComponent } from './tourPanel/city-component/city-component.component';
 import { LocationComponentComponent } from './tourPanel/location-component/location-component.component';
 import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-component/tour-place-info-component.component';
+import {MatButtonModule, MatInputModule, MatCheckboxModule} from '@angular/material';
 
 import { MessageService} from './tourPanel/shared/messageService';
 
@@ -46,12 +47,12 @@ export const ROUTES: Routes = [
     LocationComponentComponent,
     TourPlaceInfoComponentComponent
   ],
-  imports: [
+  imports: [MatButtonModule, MatCheckboxModule,
     BrowserModule, HttpModule, RouterModule, NgxDatatableModule,FormsModule,
     StoreModule.forRoot([counterReducer, cityReducer, CountryReducer, LocationReducer]), 
     EffectsModule.forRoot([CityEffects, CountryEffects, LocationEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
-  ],  
+  ],   
   providers: [MessageService],
   bootstrap: [AppComponent]
 })

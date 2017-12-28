@@ -33,7 +33,6 @@ export class CityComponentComponent implements OnInit {
   ngOnInit() {   
     
     this.citySubscription = this.store.subscribe(appData => {
-      //this.handleMessage(this.messageService.tryGetState(appData)) 
       this.handleMessage(this.getMessage(appData));  
     }); 
   }

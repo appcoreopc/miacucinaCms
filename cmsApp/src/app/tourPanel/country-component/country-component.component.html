@@ -14,14 +14,15 @@
       <div> Name 
       </div>
       <div>
-        <input type="text" id="name" [(ngModel)]="name" />
+        
+        <input matInput placeholder="Leave a comment" type="text" id="name" [(ngModel)]="name" />
       </div>
     </li>
     <li>  
       <div> Description 
       </div>
       <div>
-        <input type="text" id="description" [(ngModel)]="description" />
+        <input matInput placeholder="Leave a comment" type="text" id="description" [(ngModel)]="description" />
       </div>
     </li>
     
@@ -29,12 +30,14 @@
       <div> 
       </div>
       <div>
-        <button (click)="save()"> Save</button>
-        <button (click)="cancel()"> Cancel</button>
+        <button mat-button color="primary" (click)="save()"> Save</button>
+        <button mat-button color="primary" (click)="cancel()"> Cancel</button>
       </div>
     </li>
 
     <li>
+      
+       
     </li>
     
   </ul>    
