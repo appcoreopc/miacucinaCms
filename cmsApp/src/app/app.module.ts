@@ -19,6 +19,8 @@ import { LocationEffects } from './tourPanel/location-component/locationEffects'
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './tourPanel/dashboard/dashboard.component';
 import { CmdNavigationComponent } from './tourPanel/cmd-navigation/cmd-navigation.component';
@@ -26,7 +28,38 @@ import { CountryComponentComponent } from './tourPanel/country-component/country
 import { CityComponentComponent } from './tourPanel/city-component/city-component.component';
 import { LocationComponentComponent } from './tourPanel/location-component/location-component.component';
 import { TourPlaceInfoComponentComponent } from './tourPanel/tour-place-info-component/tour-place-info-component.component';
-import {MatButtonModule, MatInputModule, MatCheckboxModule} from '@angular/material';
+import { 
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatStepperModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule, MatFormFieldModule} from '@angular/material';
 
 import { MessageService} from './tourPanel/shared/messageService';
 
@@ -47,12 +80,43 @@ export const ROUTES: Routes = [
     LocationComponentComponent,
     TourPlaceInfoComponentComponent
   ],
-  imports: [MatButtonModule, MatCheckboxModule,
+  imports: [MatButtonModule, MatCheckboxModule, MatFormFieldModule, BrowserAnimationsModule,
     BrowserModule, HttpModule, RouterModule, NgxDatatableModule,FormsModule,
     StoreModule.forRoot([counterReducer, cityReducer, CountryReducer, LocationReducer]), 
     EffectsModule.forRoot([CityEffects, CountryEffects, LocationEffects]), /* Start monitoring app's side effects */
     RouterModule.forRoot(ROUTES)
-  ],   
+  ],  
+  exports:[  MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule, MatFormFieldModule],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })
